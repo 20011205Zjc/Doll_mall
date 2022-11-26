@@ -1,0 +1,13 @@
+.lx{
+    background-color: pink;
+}
+.lx p{
+    padding-left: 10px;
+    margin-top: 10px;
+}
+.lx p:hover{
+    cursor: pointer;
+    border: 1px solid palevioletred;
+    border-radius: 20px;
+    background-color: lightpink;
+}

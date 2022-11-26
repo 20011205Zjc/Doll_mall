@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--设置网页的图标-->
+    <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
+    <title>商家控制商品</title>
+</head>
+<script src="/static/js/shopController.js"></script>
+<body>
+<div th:replace="~{common/common::commonHeader}"></div>
+<div id="commonNav">
+    <nav class="navbar navbar-expand-md navbar-light bg-light " style="height: 40px">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="/static/img/favicon.ico" class="rounded-circle" style="height:2rem;">
+                玩偶商城
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}" th:class="${active=='index'?'nav-link text-primary active':'nav-link'}">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  th:href="@{/getAllGoods?pageNum=1}" th:class="${active=='sp'?'nav-link text-primary active':'nav-link'}">商店</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">技术支持</a>
+                    </li>
+                </ul>
+                <form class="d-flex" >
+
+                    <ul class="navbar-nav me-auto">
+
+                        <li class="nav-item">
+                            <!---->
+                            <a  th:href="@{/spController(userId=${userId})}" th:text="${merchant}" th:class="${active=='kzt'?'nav-link text-primary active':'nav-link'}"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/}" th:text="${root}"></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/user}" th:text="${userAndShop.getUserName()}"><i class="bi bi-person"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/user}"><img th:src="${userAndShop.getHeadPhoto()}" class="rounded-circle" style="height:2rem;"></a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+<h1>欢迎来到,<em th:text="${userAndShop.getShop().getShopName()}"></em></h1>
+
+<div class="container">
+<table class="table table-bordered">
+    <div class="d-grid gap-2">
+        <a type="button" class="btn btn-primary" th:href="@{/tj(userId=${userAndShop.getUserId()},shopId=${userAndShop.getShop().getShopId()})}">增加商品</a>
+    </div>
+    <tr>
+        <th scope="col" class="text-center">商品ID</th>
+<!--        <th scope="col" class="text-center">商品图片</th>-->
+        <th scope="col" class="text-center">商品名称</th>
+        <th scope="col" class="text-center">商品的销量</th>
+        <th scope="col" class="text-center">商品价格</th>
+        <th scope="col" class="text-center">操作</th>
+    </tr>
+    <tr th:each="goods,status : ${goods}">
+        <th th:text="${goods.getGoodsId()}" class="text-center"></th>
+<!--        <th th:text="${status.count}" class="text-center"></th>-->
+<!--        <th class="text-center"><img th:src="${goods.getGoodsPhoto1()}" style="height: 100px;width: 100px;"></th>-->
+        <th th:text="${goods.getGoodsDescribe1()}" class="text-center"></th>
+        <th th:text="${goods.getSalesVolume()}" class="text-center"></th>
+        <th th:text="${goods.getGoodsPrice()}" class="text-center"></th>
+        <td class="text-center">
+            <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="bi bi-trash3"></i>删除</button>
+            <button type="button" class="btn btn-warning" onclick="update()"><i class="bi bi-pencil-square" ></i>修改</button>
+            <a th:href="@{/goods(getGoodsName=${goods.getGoodsName()},shopId = ${shopId})}" type="button" class="btn btn-warning" >查看详情<i class="bi bi-bag-heart"></i></a>
+            <!--删除-->
+            <form action="/delGoods" method="post" id="scForm">
+                <input type="hidden" name="id" th:value="${goods.getGoodsId()}">
+                <input type="hidden" name="userId" th:value="${userAndShop.getUserId()}">
+                <!--<button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="bi bi-trash3"></i>删除</button>-->
+
+            <!--删除的弹出框-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <!--<h5 class="modal-title" id="exampleModalLabel">删除</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+                            <div class="modal-body">
+                                <em>是否确认删除</em>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                                    <input type="submit" value="提交" class="btn btn-danger">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <!--修改-->
+            <form action="/updateGoods" method="POST" id="updateGoods">
+                <input type="hidden" th:value="${goods.getGoodsId()}" name="goodsId">
+                <input type="hidden" th:value="${goods.getGoodsName()}" name="goodsName">
+                <input type="hidden" th:value="${goods.getGoodsDescribe1()}" name="goodsDescribe1">
+                <input type="hidden" th:value="${goods.getGoodsDescribe2()}" name="goodsDescribe2">
+                <input type="hidden" th:value="${goods.getGoodsDescribe3()}" name="goodsDescribe3">
+                <input type="hidden" th:value="${goods.getGoodsDescribe4()}" name="goodsDescribe4">
+                <input type="hidden" th:value="${goods.getGoodsDescribe5()}" name="goodsDescribe5">
+                <input type="hidden" th:value="${goods.getGoodsPrice()}" name="goodsPrice">
+                <input type="hidden" th:value="${goods.getGoodsPhoto1()}" name="goodsPhoto1">
+                <input type="hidden" th:value="${goods.getGoodsPhoto2()}" name="goodsPhoto2">
+                <input type="hidden" th:value="${goods.getGoodsPhoto3()}" name="goodsPhoto3">
+                <input type="hidden" th:value="${goods.getGoodsPhoto4()}" name="goodsPhoto4">
+                <input type="hidden" th:value="${goods.getGoodsPhoto5()}" name="goodsPhoto5">
+                <input type="hidden" th:value="${goods.getRecommend()}" name="recommend">
+                <input type="hidden" th:value="${goods.getSalesVolume()}" name="salesVolume">
+                <input type="hidden" th:value="${shopId}" name="shopId">
+                <input type="hidden" th:value="${goods.getTypeId()}" name="typeId">
+                <input type="hidden" th:value="${userAndShop.getUserId()}" name="userId">
+<!--                <input type="hidden" th:value="${goods.getGoodsSize().getGoodsSizeId()}" name="goodsSizeId">-->
+                <!--<button type="submit" class="btn btn-warning"><i class="bi bi-pencil-square"></i>修改</button>-->
+            </form>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

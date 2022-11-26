@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--设置网页的图标-->
+    <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
+    <title>Title</title>
+</head>
+<script src="/static/js/address.js"></script>
+<body>
+<div th:replace="~{common/common::commonHeader}"></div>
+<div th:replace="~{common/userDateController::#userDateNav(active='two')}"></div>
+<div class="container">
+    <div class="row myCenter">
+        <div class="col-xs-11 col-md-11 col-center-block">
+<table class="table table-hover">
+    <tr>
+        <th scope="col" class="text-center">地址序号</th>
+        <th scope="col" class="text-center">省</th>
+        <th scope="col" class="text-center">市</th>
+        <th scope="col" class="text-center">区</th>
+        <th scope="col" class="text-center">详细地址</th>
+        <th scope="col" class="text-center">操作</th>
+    </tr>
+<tr th:each="userAndAddress,status : ${userAndAddress}">
+    <th th:text="${status.count}" scope="col" class="text-center"></th>
+    <th th:text="${userAndAddress.getProvince()}" scope="col" class="text-center"></th>
+    <th th:text="${userAndAddress.getCity()}" scope="col" class="text-center"></th>
+    <th th:text="${userAndAddress.getArea()}" scope="col" class="text-center" id="ar"></th>
+    <th th:text="${userAndAddress.getAddress()}" scope="col" class="text-center" id="getAddress"></th>
+    <input th:value="${userAndAddress.getUserAreaId()}" id="Uid" type="hidden">
+    <input th:value="${userId}" id="ui" type="hidden">
+    <td class="text-center">
+        <form action="/updateAddress" method="post" id="xgForm" class="btn btn-warning">
+            <input type="hidden" th:value="${userAndAddress.getUserAreaId()}" name="userAreaId" id="xgId">
+            <input type="hidden" th:value="${userId}" name="userId">
+            <input type="button" class="btn btn-warning" value="修改" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="updateAddress()">
+        </form>
+        <!--删除地址，把地址的id和用户的id传过去进行删除操作，最后在重定向到address页面-->
+        <form action="/delAddress" method="post" id="scForm" class="btn btn-danger">
+            <input type="hidden" th:value="${userAndAddress.getUserAreaId()}" name="userAreaId">
+            <input type="hidden" th:value="${userId}" name="userId">
+            <!--data-bs-toggle="modal" data-bs-target="#exampleModal1"-->
+            <input  type="submit" class="btn btn-danger" value="删除"  id="sc">
+        </form>
+
+        <!--弹出确认框-->
+<!--        <form action="/delAddress" method="post">
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">地址管理</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden"  name="userAreaId" id="userAreaId">
+                        <input type="hidden" name="userId" id="userId">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                        <input type="submit" value="确认" class="btn btn-danger">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>-->
+    </td>
+
+</tr>
+</table>
+            <div class="d-grid gap-2 col-6 mx-auto">
+             <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-send-plus"></i>&nbsp;新增地址</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--新增地址-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">地址管理</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" name="addForm" id="addForm">
+                    <input type="hidden" th:value="${userId}" name="userId">
+                    <select id="province" onclick="pe()" name="province" class="form-select" aria-label="Default select example col-4">
+                        <!--省份-->
+                        <option selected >--省份--</option>
+                    </select>
+
+                    <select id="city" onclick="cy()" name="city" class="form-select" aria-label="Default select example col-4">
+                        <!--市-->
+                        <option selected>--市--</option>
+                    </select>
+
+                    <select id="area" name="area" class="form-select" aria-label="Default select example col-4">
+                        <!--区-->
+                        <option selected>--区--</option>
+                    </select>
+
+                    <input type="text" name="address" id="address" class="form-control">
+
+                    <div class="modal-footer">
+                        <span><em id="error" style="color: red"></em></span>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                        <input type="button" value="提交" class="btn btn-danger" onclick="userAddress()" id="sub2">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<style>
+    .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doll.doll_mall.mapper.CityMapper">
+<!-- City getCityAndArea(String areaCode);-->
+    <resultMap id="CityAndAreaResultMap" type="com.doll.doll_mall.pojo.City">
+        <id property="ctyId" column="ctyId"></id>
+        <result property="cityCode" column="cityCode"></result>
+        <result property="cityName" column="cityName"></result>
+        <result property="provincecode" column="provincecode"></result>
+        <collection property="areas" ofType="com.doll.doll_mall.pojo.Area">
+            <id column="AreaId" property="AreaId"></id>
+            <result column="AreaCode" property="AreaCode"></result>
+            <result column="AreaName" property="AreaName"></result>
+            <result column="citycode" property="citycode"></result>
+        </collection>
+    </resultMap>
+    <select id="getCityAndArea" resultMap="CityAndAreaResultMap">
+        select * from sc_city left join sc_area on sc_city.cityCode = sc_area.citycode where sc_area.citycode =#{areaCode}
+    </select>
+
+    <!--City city(String name);-->
+    <select id="city" resultType="com.doll.doll_mall.pojo.City">
+        SELECT * FROM sc_city WHERE cityName = #{name}
+    </select>
+
+</mapper>

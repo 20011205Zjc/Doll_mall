@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
+    <div th:insert="common/common::commonHeader"></div>
+</head>
+<body>
+<div th:insert="~{common/common::#commonNav(active='index')}"></div>
+<!--滚动图-->
+<div id="example" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#example" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#example" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#example" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/static/img/11.jpg" class="d-block w-100" alt="..." style="width: 100%" height="590px" >
+        </div>
+        <div class="carousel-item">
+            <img src="/static/img/33.jpg" class="d-block w-100" alt="..." style="width: 100%" height="590px">
+        </div>
+        <div class="carousel-item">
+            <img src="/static/img/QQ截图20221114130631.png" class="d-block w-100" alt="..." style="width: 100%" height="590px">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#example" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#example" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!--===================================================-->
+
+<div class="container px-4 py-5" th:each="allGoods : ${goodsByRecommend}">
+    <div class="row align-items-lg-center g-5">
+        <div class="col-12 col-lg-6">
+            <img th:src="${allGoods.getGoodsPhoto1()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 500px;width: 600px">
+        </div>
+        <div class="col-12 col-lg-6">
+            <h1 class="display-6 fw-bold mb-3" th:text="${allGoods.getGoodsDescribe1()}">嘟嘟喵玩偶
+            </h1>
+            <p class="lead">艾斯德毛绒玩具网红喵咪公仔布娃娃。</p>
+            <div class="d-grid d-md-flex justify-content-md-start" th:text="${allGoods.getGoodsDescribe2()}">
+            </div>
+            <form action="/goods" method="post">
+                <input type="hidden" th:value="${allGoods.getGoodsName()}" id="getGoodsName" name="getGoodsName">
+                <input type="hidden" th:value="${allGoods.getShopId()}" name="shopId">
+                <button type="submit" class="btn btn-warning" >购买<i class="bi bi-bag-heart"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--<div class="col-12">
+<table>
+    <tr th:each="allGoods : ${goodsByRecommend}">
+        <td>
+            <div class="container">
+            <div class="bg-gray" style="background: white">
+                <div class="container px-4 py-5">
+                    <div class="row align-items-lg-center g-5">
+                        <div class="col-12 col-lg-6">
+                            &lt;!&ndash;          img-lab@2x.png&ndash;&gt;
+                            <img th:src="${allGoods.getGoodsPhoto1()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 400px;width: 400px">
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <h1 class="display-6 fw-bold mb-3" th:text="${allGoods.getGoodsName()}"></h1>
+                            <p class="lead" th:text="${allGoods.getGoodsDescribe1()}"></p>
+                            <div class="d-grid d-md-flex justify-content-md-start">
+                                <form action="/goods" method="post">
+                                <input type="hidden" th:value="${allGoods.getGoodsName()}" id="" name="getGoodsName">
+                                    <input type="hidden" th:value="${allGoods.getShopId()}" name="shopId">
+                                    <button type="submit" class="btn btn-warning" >购买<i class="bi bi-bag-heart"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </td>
+    </tr>
+</table>
+</div>-->
+
+<div class="container px-4">
+    <h2 class="pb-2 border-bottom">本站热销</h2>
+    <div class="row g-5 py-5">
+        <!--============================================================-->
+        <div class="col-md-3 d-flex flex-md-column" th:each="goodsBySalesVolume : ${goodsBySalesVolume} ">
+            <div class="feature-icon  bg-gradient flex-shrink-0 me-3">
+                <img th:src="${goodsBySalesVolume.getGoodsPhoto1()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 200px;width: 200px;">
+            </div>
+            <div>
+                <em th:text="${goodsBySalesVolume.getGoodsDescribe1()}"></em>
+                价格：<p th:text="${goodsBySalesVolume.getGoodsPrice()}"></p>
+                销量：<p th:text="${goodsBySalesVolume.getSalesVolume()}"></p>
+                <form action="/goods" method="post">
+                    <input type="hidden" th:value="${userId}" name="userId">
+                    <input type="hidden" th:value="${goodsBySalesVolume.getGoodsName()}" name="getGoodsName">
+                    <input type="hidden" th:value="${goodsBySalesVolume.getShopId()}" name="shopId">
+                    <button type="submit" class="btn btn-warning" >购买<i class="bi bi-bag-heart"></i></button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

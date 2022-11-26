@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+<div th:insert="common/common::commonHeader"></div>
+</head>
+<script src="/static/js/register.js"></script>
+<script>
+    window.onload = function (){
+        /*当页面加载完成之后，默认日期为今天*/
+    Date.prototype.toDateInputValue = (function() {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0,10);
+    });
+    document.getElementById("userage").value = new  Date().toDateInputValue();
+    }
+</script>
+
+<body>
+<div class="container">
+    <div class="row myCenter">
+        <div class="col-xs-6 col-md-6 col-center-block">
+            <form id="MyForm" name="MyForm" enctype="multipart/form-data" method="post" action="/adduser" class="row g-3" novalidate>
+                <div class="col-12">
+                    <label  class="form-lable">用户名:</label>
+                    <input type="text" class="form-control" name="userName" placeholder="用户名" id="username" onblur="username1()" onfocus="del()">
+                </div>
+                <div class="col-12">
+                    <span style="margin-left: 15px;color: red;font-size: 15px;" id="user" ></span>
+                    <span style="margin-left: 15px;color: cadetblue;font-size: 15px" id="user1"></span>
+                </div>
+
+                <div class="col-12">
+                    <label  class="form-lable">密码:</label>
+                    <input type="password" class="form-control" name="userPassword" placeholder="密码" id="password" onblur="pwd()" onfocus="pwd2()">
+                </div>
+                    <div class="col-12">
+                        <span style="margin-left: 15px;color: red;font-size: 15px" id="pwd"></span>
+                        <span style="margin-left: 15px;color: cadetblue;font-size: 15px" id="pwd1"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label  class="form-lable">密码:</label>
+            <input type="password" class="form-control" placeholder="确认密码" id="RP" onblur="pwd3()" onfocus="pwd4()">
+                    </div>
+                        <div class="col-12">
+            <span style="margin-left: 15px;color: red;font-size: 15px" id="Rpwd"></span>
+                        </div>
+                <div class="col-12">
+                    <label  class="form-lable">生日:</label>
+  <input type="date" class="form-control" name="userAge" placeholder="age" id="userage">
+        </div>
+                <div class="col-12">
+                    <span style="margin-left: 15px;color: red;font-size: 15px" id="age"></span>
+                </div>
+                <div class="col-12">
+                    <label  class="form-lable">性别:</label>
+                    <select name="userGender" class="form-select">
+                        <option selected>不愿透露</option>
+                        <option>男</option>
+                        <option>女</option>
+                    </select>
+                </div>
+                <input type="hidden" name="roles" value="user">
+                <div class="col-12">
+                    <label  class="form-lable">邮箱:</label>
+    <input type="email" class="form-control" id="email" name="userEmail" placeholder="email" onfocus="del2()" onblur="eml()">
+                </div>
+                <div class="col-12">
+            <span style="margin-left: 15px;color: red;font-size: 15px" id="em"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">验证码</span>
+                    <input type="text" class="form-control" name="code"  id="code" placeholder="code" onfocus="coded()" onblur="yz()">
+                    <input type="button" class="btn btn-primary btn-lg btn-block"  onclick=getCode() value="获取验证码">
+                </div>
+                <span id="codeError" style="margin-left: 15px;color: red;font-size: 10px"></span>
+        <div class="input-group mb-3">
+    <input type="button"  value="注册" id="sub" class="btn btn-primary btn-lg btn-block" onclick="zc()">
+        </div>
+    </form>
+</div>
+</div>
+</div>
+</body>
+
+<style>
+    .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+</html>

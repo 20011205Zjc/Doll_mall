@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <!--设置网页的图标-->
+  <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
+  <title>添加商品</title>
+  <!-- 新 Bootstrap5 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+  <!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+  <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+  <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+  <!--图标库的引入-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<script src="/static/js/insertGoods.js"></script>
+<body>
+<div th:insert="~{common/common::#commonNav}"></div>
+<div class="row myCenter">
+  <div class="col-xs-6 col-md-6 col-center-block">
+    <form action="/insertGoods" method="post" enctype="application/x-www-form-urlencoded" class="row g-3" name="myForm" id="myForm">
+      <div class="col-6">
+<!--        <label class="form-label">商品的名字<em style="color: red;margin-left: 10px" id="em1"></em></label>-->
+          <!--onblur="goodsname()" onfocus="goodsname2()"-->
+        <input type="hidden" th:value="${goodsName}" name="goodsName" class="form-control "  placeholder="可以是字母,数字,_,汉字">
+      </div>
+      <div class="col-12">
+        <label class="form-label">价格 <em style="color: red;margin-left: 10px" id="em2"></em></label>
+        <input type="number" name="goodsPrice" class="form-control " placeholder="￥  示例：99.99" onblur="gp()" onfocus="gp2()" >
+      </div>
+      <!--===========================================================================================-->
+      <div class="col-6">
+        <div class="col-6">
+          <img src="/static/img/QQ截图20221117112737.png" id="tp1" style="height: 440px;width: 650px;">
+        </div>
+        <label class="form-label">图片1</label>
+        <input type="file" class="form-control " onchange="tu1()" id="gh1">
+        <input type="hidden" name="goodsPhoto1" id="gh11">
+      </div>
+
+      <em id="gd11" style="color: red" ></em>
+      <textarea placeholder="商品名字2(用户搜索时通过这个内容进行匹配【限制1~25】)" name="goodsDescribe1" class="form-control" onblur="d1()" id="gd1" maxlength="25" onkeyup="this.value=this.value.replace(/\s+/g,'')" onfocus="d11()"></textarea>
+      <!--============================================================================================-->
+      <div class="col-6">
+        <div class="col-6">
+          <img src="/static/img/2.png" style="height: 440px;width: 650px;" id="tp2">
+        </div>
+        <label class="form-label">图片2</label>
+        <input type="file" class="form-control " id="gh2" onchange="tu2()">
+        <input type="hidden" name="goodsPhoto2" id="gh22">
+      </div>
+      <em id="gd22" style="color: red" ></em>
+      <textarea placeholder="商品的描述【至少20字】" name="goodsDescribe2" class="form-control" id="gd2" onfocus="d22()" onblur="d2()" minlength="20" onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+
+      <div class="col-6">
+        <div class="col-6">
+          <img src="/static/img/3.png" style="height: 440px;width: 650px;" id="tp3">
+        </div>
+        <label class="form-label">图片3</label>
+        <input type="file" class="form-control " id="gh3" onchange="tu3()">
+        <input type="hidden" name="goodsPhoto3" id="gh33">
+      </div>
+      <em id="gd33" style="color: red" ></em>
+      <textarea placeholder="商品的描述【至少20字】" name="goodsDescribe3" class="form-control" id="gd3" onblur="d3()" onfocus="d33()"  minlength="20" onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+
+      <div class="col-6">
+        <div class="col-6">
+          <img src="/static/img/QQ截图20221117112737.png" style="height: 440px;width: 650px;" id="tp4">
+        </div>
+        <label class="form-label">图片4</label>
+        <input type="file" class="form-control " id="gh4" onchange="tu4()">
+        <input type="hidden" name="goodsPhoto4" id="gh44">
+      </div>
+      <em id="gd44" style="color: red" ></em>
+      <textarea placeholder="商品的描述【至少20字】" name="goodsDescribe4" class="form-control" id="gd4" onfocus="d44()" onblur="d4()"  minlength="20" onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+
+      <div class="col-6">
+        <div class="col-6">
+          <img src="/static/img/4.png" style="height: 440px;width: 650px;" id="tp5">
+        </div>
+        <label class="form-label">图片5</label>
+        <input type="file" class="form-control " onchange="tu5()" id="gh5">
+        <input type="hidden" name="goodsPhoto5" id="gh55">
+      </div>
+      <em id="gd55" style="color: red" ></em>
+      <textarea placeholder="商品的描述【至少20字】" name="goodsDescribe5" class="form-control" id="gd5" onblur="d5()" onfocus="d55()"  minlength="20" onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+      <input type="hidden" name="recommend" value="0"><br>
+      <input type="hidden" name="salesVolume" value="0"><br>
+      商品的类型:<select name="typeId">
+<!--      <option selected value="1">其他</option>
+      <option value="2">狗</option>-->
+        <option  th:each="type : ${type}" th:value="${type.getTypeId()}" th:text="${type.getTypeName()}"></option>
+    </select>
+      S码的库存：<input type="number" name="goodsS" id="goodsS" oninput="this.value = this.value.replace(/[^0-9]/g, '');"><br>
+      M码的库存：<input type="number"  name="goodsM" id="goodsM" oninput="this.value = this.value.replace(/[^0-9]/g, '');"><br>
+      X码的库存：<input type="number" name="goodsX" id="goodsX" oninput="this.value = this.value.replace(/[^0-9]/g, '');"><br>
+      <input type="hidden" th:value="${userId}" name="userId">
+      <input type="hidden" th:value="${shopId}" name="shopId">
+      <input type="button" value="提交" id="btu" onclick="sub()">
+    </form>
+  </div>
+</div>
+<style>
+  .col-center-block {
+    float: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+</body>
+</html>

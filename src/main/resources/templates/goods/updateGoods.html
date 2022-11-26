@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--设置网页的图标-->
+    <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
+    <div th:insert="~{common/common::commonHeader}"></div>
+    <script src="/static/js/UpdateGoods.js"></script>
+    <title>修改商品页面</title>
+</head>
+<div th:insert="~{common/common::#commonNav}"></div>
+<body>
+<div class="row myCenter">
+    <div class="col-xs-6 col-md-6 col-center-block">
+<form action="/upGoods" method="post" class="row g-3" name="myForm" id="myForm">
+    <input type="hidden" name="userId" th:value="${userId}">
+    <input type="hidden" th:value="${goods.getGoodsId()}" name="goodsId">
+    <div class="col-6">
+<!--        <label class="form-label">商品的名字<em style="color: red;margin-left: 10px" id="em1"></em></label>-->
+        <input type="hidden" th:value="${goods.getGoodsName()}" id="hiName">
+        <input type="hidden" name="goodsName" class="form-control " onblur="goodsname()" onfocus="goodsname2()" placeholder="可以是字母,数字,_,汉字" th:value="${goodsName}" onkeyup="this.value=this.value.replace(/\s+/g,'')">
+    </div>
+    <div class="col-12">
+        <label class="form-label">价格 <em style="color: red;margin-left: 10px" id="em2"></em></label>
+        <input type="text" name="goodsPrice" class="form-control " placeholder="￥  示例：99.99" onblur="gp()" onfocus="gp2()" th:value="${goods.getGoodsPrice()}" onkeyup="this.value=this.value.replace(/\s+/g,'')">
+    </div>
+    <!--===========================================================================================-->
+    <div class="col-6">
+        <div class="col-6">
+            <img th:src="${goods.getGoodsPhoto1()}" id="tp1" style="height: 440px;width: 650px;">
+        </div>
+        <label class="form-label">图片1</label>
+        <input type="file" class="form-control " onchange="tu1()" id="gh1" th:value="${goods.getGoodsPhoto1()}">
+        <input type="hidden" name="goodsPhoto1" id="gh11">
+    </div>
+    <em id="gd11" style="color: red" ></em>
+    <textarea placeholder="商品名字2(用户搜索时通过这个内容进行匹配【限制1~25】)" name="goodsDescribe1" class="form-control" th:text="${goods.getGoodsDescribe1()}" nblur="d1()" id="gd1" maxlength="25" onkeyup="this.value=this.value.replace(/\s+/g,'')" onfocus="d11()">></textarea>
+    <!--============================================================================================-->
+    <div class="col-6">
+        <div class="col-6">
+            <img th:src="${goods.getGoodsPhoto2()}"  style="height: 440px;width: 650px;" id="tp2">
+        </div>
+        <label class="form-label">图片2</label>
+        <input type="file" class="form-control " id="gh2" onchange="tu2()">
+        <input type="hidden" name="goodsPhoto2" id="gh22">
+    </div>
+    <em id="gd22" style="color: red" ></em>
+    <textarea placeholder="商品的描述【至少20字】" name="goodsDescribe2" class="form-control" th:text="${goods.getGoodsDescribe2()}" id="gd2" onfocus="d22()" onblur="d2()" minlength="20" onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+
+    <div class="col-6">
+        <div class="col-6">
+            <img th:src="${goods.getGoodsPhoto3()}" style="height: 440px;width: 650px;" id="tp3">
+        </div>
+        <label class="form-label">图片3</label>
+        <input type="file" class="form-control " id="gh3" onchange="tu3()">
+        <input type="hidden" name="goodsPhoto3" id="gh33">
+    </div>
+    <em id="gd33" style="color: red" ></em>
+    <textarea placeholder="商品的描述【至少20字】" name="goodsDescribe3" class="form-control" th:text="${goods.getGoodsDescribe3()}" id="gd3" onblur="d3()" onfocus="d33()"  minlength="20" onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+
+    <div class="col-6">
+        <div class="col-6">
+            <img th:src="${goods.getGoodsPhoto4()}" style="height: 440px;width: 650px;" id="tp4">
+        </div>
+        <label class="form-label">图片4</label>
+        <input type="file" class="form-control " id="gh4" onchange="tu4()">
+        <input type="hidden" name="goodsPhoto4" id="gh44">
+    </div>
+    <em id="gd44" style="color: red" ></em>
+    <textarea placeholder="商品的描述【至少20字】" name="goodsDescribe4" class="form-control" th:text="${goods.getGoodsDescribe4()}" id="gd4" onfocus="d44()" onblur="d4()"  minlength="20" onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+
+    <div class="col-6">
+        <div class="col-6">
+            <img th:src="${goods.getGoodsPhoto5()}" style="height: 440px;width: 650px;" id="tp5">
+        </div>
+        <label class="form-label">图片5</label>
+        <input type="file" class="form-control " onchange="tu5()" id="gh5">
+        <input type="hidden" name="goodsPhoto5" id="gh55">
+    </div>
+    <em id="gd55" style="color: red" ></em>
+    <textarea placeholder="商品的描述【至少20字】" name="goodsDescribe5" class="form-control" th:text="${goods.getGoodsDescribe5()}" id="gd5" onblur="d5()" onfocus="d55()"  minlength="20" onkeyup="this.value=this.value.replace(/\s+/g,'')"></textarea>
+    <input type="hidden" name="recommend" value="0"><br>
+    <input type="hidden" name="salesVolume" value="0"><br>
+    商品的类型:<select name="typeId">
+    <option selected value="1">其他</option>
+    <option value="2">狗</option>
+</select>
+    S码的库存：<input type="text" name="goodsS" id="goodsS" oninput="this.value = this.value.replace(/[^1-9]/g, '');"><br>
+    M码的库存：<input type="text" name="goodsM" oninput="this.value = this.value.replace(/[^1-9]/g, '');"><br>
+    X码的库存：<input type="text" name="goodsX" oninput="this.value = this.value.replace(/[^1-9]/g, '');"><br>
+    <input type="hidden" th:value="${sizeId}">
+    <input type="hidden" th:value="${userId}" name="userId">
+    <input type="hidden" th:value="${goods.getShopId()}" name="shopId">
+    <input type="button" value="提交" id="btu" onclick="sub()">
+</form>
+    </div>
+</div>
+</form>
+</body>
+<style>
+    .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+</html>

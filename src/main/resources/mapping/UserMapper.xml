@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doll.doll_mall.mapper.UserMapper">
+
+    <!--List<User> getAllUser();-->
+    <!--查询所有的用户信息-->
+    <select id="getAllUser" resultType="com.doll.doll_mall.pojo.User">
+        select * from user;
+    </select>
+
+    <!--void insertUser(User user);-->
+    <!--添加用户信息-->
+    <insert id="insertUser">
+        insert into user values (null,#{userName},#{userPassword},#{userAge},#{userGender},#{userEmail},#{headPhoto},#{roles})
+    </insert>
+
+    <!-- List<User> getLikeUsername();-->
+    <!--搜索联想-->
+    <select id="getLikeUsername" resultType="com.doll.doll_mall.pojo.User">
+        select userName from user where userName like "%"#{userName}"%"
+    </select>
+
+    <!--int updateUser();-->
+    <!--修改用户信息-->
+    <update id="updateUser">
+        update user set userName=#{userName},userPassword=#{userPassword},userAge=#{userAge},userGender=#{userGender},userEmail=#{userEmail},headPhoto=#{headPhoto} where userId=#{userId}
+    </update>
+
+    <!--int delUser();-->
+    <!--删除用户信息-->
+    <delete id="delUser">
+        delete from user where userId=#{userId}
+    </delete>
+
+    <!--    List<User> getUserById(int id);-->
+    <!--根据id查询用户信息-->
+    <select id="getUserById" resultType="com.doll.doll_mall.pojo.User">
+        select * from user where userId=#{userId}
+    </select>
+
+    <!--动态sql实现用户的修改-->
+    <!--int updateUserBy(User user);-->
+    <update id="updateUserBy">
+        update user
+        <set>
+            <if test="userName != null and userName != ''">
+                userName=#{userName},
+            </if>
+
+            <if test="userPassword != null and userPassword != ''">
+                userPassword=#{userPassword},
+            </if>
+
+            <if test="userAge != null and userAge != ''">
+                userAge=#{userAge},
+            </if>
+
+            <if test="userGender != null and userGender != ''">
+                userGender=#{userGender},
+            </if>
+
+            <if test="userEmail != null and userEmail != ''">
+                userEmail=#{userEmail},
+            </if>
+
+            <if test="headPhoto != null and headPhoto != ''">
+                headPhoto=#{headPhoto},
+            </if>
+            <if test="roles != null and roles != ''">
+                roles=#{roles}
+            </if>
+        </set>
+            where userId=#{userId}
+    </update>
+
+</mapper>

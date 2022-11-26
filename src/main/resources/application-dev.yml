@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 123456!@#Zjc
+    #url中database为对应的数据库名称
+    url: jdbc:mysql://47.118.207.4:3306/doll_mall
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 100MB
+
+  #    邮箱的配置
+  mail:
+    username: 3150982110@qq.com
+    password: jjqtptloyrjadcei #授权码
+    host: smtp.qq.com
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+    default-encoding: UTF-8
+
+#设置不拦截static下的所有东西
+  mvc:
+    static-path-pattern: /static/**
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.doll.doll_mall.pojo
+
+#showSql
+#logging:
+#  level:
+#    com.example.demo.mapper: debug

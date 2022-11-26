@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doll.doll_mall.mapper.ProvinceMapper">
+    <!-- List<Province> province();-->
+    <select id="province" resultType="com.doll.doll_mall.pojo.Province">
+        select * from sc_province
+    </select>
+
+    <!--Province getProvinceAndCity();-->
+    <resultMap id="ProvinceAndCityResultMap" type="com.doll.doll_mall.pojo.Province">
+        <id property="id" column="id"></id>
+        <result property="code" column="code"></result>
+        <result property="name" column="name"></result>
+        <collection property="cities" ofType="com.doll.doll_mall.pojo.City">
+            <id property="cityId" column="cityId"></id>
+            <result column="cityCode" property="cityCode"></result>
+            <result property="cityName" column="cityName"></result>
+            <result property="provincecode" column="provincecode"></result>
+        </collection>
+    </resultMap>
+    <select id="getProvinceAndCity" resultMap="ProvinceAndCityResultMap">
+        SELECT * FROM sc_province LEFT JOIN sc_city ON sc_province.`code` = sc_city.provincecode WHERE sc_city.provincecode = #{provincecode}
+    </select>
+
+    <!--Province province1(String name);-->
+    <select id="province1" resultType="com.doll.doll_mall.pojo.Province">
+        SELECT * FROM sc_province WHERE `name` = #{name}
+    </select>
+
+</mapper>

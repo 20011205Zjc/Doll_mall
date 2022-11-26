@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doll.doll_mall.mapper.ShopMapper">
+<!--void insertShop(Shop shop);-->
+    <insert id="insertShop">
+        insert into shop values (null,#{shopName},#{shopPhoto},#{shopDescribe},#{collectContent},#{state},#{userId})
+    </insert>
+
+    <!--User getUserAndShop();-->
+    <resultMap id="UserAndShop" type="com.doll.doll_mall.pojo.User">
+        <id property="userId" column="userId"></id>
+        <result property="userName" column="userName"></result>
+        <result property="userEmail" column="userEmail"></result>
+        <result property="headPhoto" column="headPhoto"></result>
+        <association property="shop" javaType="com.doll.doll_mall.pojo.Shop">
+            <id property="shopId" column="shopId"></id>
+            <result property="shopName" column="shopName"></result>
+            <result property="shopPhoto" column="shopPhoto"></result>
+            <result property="shopDescribe" column="shopDescribe"></result>
+            <result property="collectContent" column="collectContent"></result>
+            <result property="state" column="state"></result>
+        </association>
+    </resultMap>
+    <select id="getUserAndShop" resultMap="UserAndShop">
+        SELECT * FROM user LEFT JOIN shop ON user.userId=shop.userId WHERE user.userId = #{userId}
+    </select>
+    <!-- Shop getShopAndGoodsByShopId(Integer shopId);-->
+    <resultMap id="ShopAndGoodsResultMap" type="com.doll.doll_mall.pojo.Shop">
+        <id property="shopId" column="shopId"></id>
+        <result property="shopName" column="shopName"></result>
+        <collection property="goods" ofType="com.doll.doll_mall.pojo.Goods">
+            <id column="goodsId" property="goodsId"></id>
+            <result column="goodsName" property="goodsName"></result>
+            <result column="goodsDescribe1" property="goodsDescribe1"></result>
+            <result column="goodsDescribe2" property="goodsDescribe2"></result>
+            <result column="goodsDescribe3" property="goodsDescribe3"></result>
+            <result column="goodsDescribe4" property="goodsDescribe4"></result>
+            <result column="goodsDescribe5" property="goodsDescribe5"></result>
+            <result column="goodsPrice" property="goodsPrice"></result>
+            <result column="goodsPhoto1" property="goodsPhoto1"></result>
+            <result column="goodsPhoto2" property="goodsPhoto2"></result>
+            <result column="goodsPhoto3" property="goodsPhoto3"></result>
+            <result column="goodsPhoto4" property="goodsPhoto4"></result>
+            <result column="goodsPhoto5" property="goodsPhoto5"></result>
+            <result column="recommend" property="recommend"></result>
+            <result column="salesVolume" property="salesVolume"></result>
+            <result column="typeId" property="typeId"></result>
+        </collection>
+    </resultMap>
+    <select id="getShopAndGoodsByShopId" resultMap="ShopAndGoodsResultMap">
+        SELECT * FROM shop LEFT JOIN goods ON shop.shopId = goods.shopId WHERE shop.shopId = #{shopId}
+    </select>
+
+    <!--List<Shop> shops();-->
+    <select id="shops" resultType="com.doll.doll_mall.pojo.Shop">
+        select * from shop
+    </select>
+</mapper>

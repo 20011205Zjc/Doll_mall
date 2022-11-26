@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doll.doll_mall.mapper.CartMapper">
+    <!--int insertCart(Cart cart);-->
+    <insert id="insertCart">
+        insert into cart values (null,#{goodsDescribe1},#{goodsPhoto1},#{goodsSize},#{goodsCount},#{totalPrice},#{goodsId},#{userId})
+    </insert>
+
+    <!--List<Cart> carts(Integer userId);-->
+    <select id="carts" resultType="com.doll.doll_mall.pojo.Cart">
+        select * from cart where userId = #{userId}
+    </select>
+
+    <!--int updateCart(Cart cart);-->
+    <update id="updateCart">
+        update cart
+        <set>
+            <if test="goodsDescribe1 != null and goodsDescribe1 != ''">
+                goodsDescribe1 = #{goodsDescribe1},
+            </if>
+            <if test="goodsPhoto1 != null and goodsPhoto1 != ''">
+                goodsPhoto1 = #{goodsPhoto1},
+            </if>
+            <if test="goodsSize != null and goodsSize != ''">
+                goodsSize = #{goodsSize},
+            </if>
+            <if test="goodsCount != null and goodsCount != ''">
+                goodsCount = #{goodsCount},
+            </if>
+            <if test="totalPrice != null and totalPrice != ''">
+                totalPrice = #{totalPrice},
+            </if>
+            <if test="userId != null and userId != ''">
+                userId = #{userId},
+            </if>
+            <if test="goodsId != null and goodsId != ''">
+                goodsId = #{goodsId},
+            </if>
+        </set>
+        where cartId=#{cartId}
+    </update>
+    <!--int delCart(String goodsName);-->
+    <delete id="delCart">
+        delete from cart where goodsId = #{goodsId}
+    </delete>
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doll.doll_mall.mapper.GoodsMapper">
+
+    <!--List<Goods> getAllGoods();-->
+    <select id="getAllGoods" resultType="com.doll.doll_mall.pojo.Goods">
+        select * from goods
+    </select>
+
+    <!--List<Goods> getGoodsByLike(String goodsName);-->
+<!--    <select id="getGoodsByLike" resultType="com.doll.doll_mall.pojo.Goods">
+       select goodsName from goods where goodsName like "%"#{goodsName}"%"
+    </select>-->
+
+    <!--    List<Goods> getGoodsById(int id);-->
+    <select id="getGoodsById" resultType="com.doll.doll_mall.pojo.Goods">
+        select * from goods where goodsId = #{goodsId}
+    </select>
+
+
+    <!--查询出商品以及商品各个尺寸的库存-->
+    <!-- Goods getGoodsAndGoodsSize(@Param("goodsId") Integer goodsId);-->
+    <resultMap id="GoodsAndGoodsSize" type="com.doll.doll_mall.pojo.Goods">
+    <id property="goodsId" column="goodsId"></id>
+    <result property="goodsName" column="goodsName"></result>
+    <result property="goodsDescribe1" column="goodsDescribe1"></result>
+    <result property="goodsDescribe2" column="goodsDescribe2"></result>
+    <result property="goodsDescribe3" column="goodsDescribe3"></result>
+    <result property="goodsDescribe4" column="goodsDescribe4"></result>
+    <result property="goodsDescribe5" column="goodsDescribe5"></result>
+    <result property="goodsPrice" column="goodsPrice"></result>
+    <result property="goodsPhoto1" column="goodsPhoto1"></result>
+    <result property="goodsPhoto2" column="goodsPhoto2"></result>
+    <result property="goodsPhoto3" column="goodsPhoto3"></result>
+    <result property="goodsPhoto4" column="goodsPhoto4"></result>
+    <result property="goodsPhoto5" column="goodsPhoto5"></result>
+    <result property="recommend" column="recommend"></result>
+    <result property="salesVolume" column="salesVolume"></result>
+    <result property="typeId" column="typeId"></result>
+        <association property="goodsSize" javaType="com.doll.doll_mall.pojo.goodsSize">
+            <id property="goodsSizeId" column="goodsSizeId"></id>
+            <result property="goodsS" column="goodsS"></result>
+            <result property="goodsM" column="goodsM"></result>
+            <result property="goodsX" column="goodsX"></result>
+            <result property="goodsName" column="goodsName"></result>
+        </association>
+    </resultMap>
+    <select id="getGoodsAndGoodsSize" resultMap="GoodsAndGoodsSize">
+        SELECT *
+        FROM goods
+                 LEFT JOIN goodssize
+                           ON goods.goodsName = goodssize.goodsName
+        WHERE goods.goodsName = #{goodsName}
+    </select>
+
+    <!--增加商品 void insertGoods(Goods goods);-->
+    <insert id="insertGoods">
+        insert into goods values (null,#{goodsName},#{goodsDescribe1},#{goodsDescribe2},#{goodsDescribe3},#{goodsDescribe4},#{goodsDescribe5},#{goodsPrice},#{goodsPhoto1},#{goodsPhoto2},#{goodsPhoto3},#{goodsPhoto4},#{goodsPhoto5},#{recommend},#{salesVolume},#{typeId},#{shopId})
+    </insert>
+
+    <!--List<Goods> getGoodsBySalesVolume(Integer salesVolume);-->
+    <select id="getGoodsBySalesVolume" resultType="com.doll.doll_mall.pojo.Goods">
+        SELECT * FROM goods  ORDER BY salesVolume DESC LIMIT 0,4
+    </select>
+
+    <!--List<Goods> getGoodsByRecommend();-->
+    <select id="getGoodsByRecommend" resultType="com.doll.doll_mall.pojo.Goods">
+        SELECT * FROM goods  ORDER BY recommend DESC LIMIT 0,4
+    </select>
+
+    <!--List<Goods> getGoodsByLike(String goodsDescribe1);-->
+    <select id="getGoodsByLike" resultType="com.doll.doll_mall.pojo.Goods">
+        SELECT * FROM `goods` WHERE goodsDescribe1 LIKE "%"#{goodsDescribe1}"%"
+    </select>
+
+    <!--int DelGoods(Integer id);-->
+    <delete id="DelGoods">
+        DELETE FROM goods WHERE goodsId = #{id}
+    </delete>
+
+    <!--int UpdateGoods(Goods goods);-->
+    <update id="UpdateGoods">
+        update goods
+        <set>
+            <if test="goodsName != null and goodsName != ''">
+                goodsName = #{goodsName},
+            </if>
+            <if test="goodsDescribe1 != null and goodsDescribe1 != ''">
+                goodsDescribe1 = #{goodsDescribe1},
+            </if>
+            <if test="goodsDescribe2 != null and goodsDescribe2 != ''">
+                goodsDescribe2 = #{goodsDescribe2},
+            </if>
+            <if test="goodsDescribe3 != null and goodsDescribe3 != ''">
+                goodsDescribe3 = #{goodsDescribe3},
+            </if>
+            <if test="goodsDescribe4 != null and goodsDescribe4 != ''">
+                goodsDescribe4 = #{goodsDescribe4},
+            </if>
+            <if test="goodsDescribe5 != null and goodsDescribe5 != ''">
+                goodsDescribe5 = #{goodsDescribe5},
+            </if>
+            <if test="goodsPrice != null and goodsPrice != ''">
+                goodsPrice = #{goodsPrice},
+            </if>
+            <if test="goodsPhoto1 != null and goodsPhoto1 != ''">
+                goodsPhoto1 = #{goodsPhoto1},
+            </if>
+            <if test="goodsPhoto2 != null and goodsPhoto2 != ''">
+                goodsPhoto2 = #{goodsPhoto2},
+            </if>
+            <if test="goodsPhoto3 != null and goodsPhoto3 != ''">
+                goodsPhoto3 = #{goodsPhoto3},
+            </if>
+            <if test="goodsPhoto4 != null and goodsPhoto4 != ''">
+                goodsPhoto4 = #{goodsPhoto4},
+            </if>
+            <if test="goodsPhoto5 != null and goodsPhoto5 != ''">
+                goodsPhoto5 = #{goodsPhoto5},
+            </if>
+            <if test="recommend != null and recommend != ''">
+                recommend = #{recommend},
+            </if>
+            <if test="salesVolume != null and salesVolume != ''">
+                salesVolume = #{salesVolume},
+            </if>
+            <if test="typeId != null and typeId != ''">
+                typeId = #{typeId},
+            </if>
+            <if test="shopId != null and shopId != ''">
+                shopId = #{shopId}
+            </if>
+        </set>
+        where goodsId = #{goodsId}
+    </update>
+
+    <!--List<Goods> goods(Integer shopId);-->
+    <select id="goods" resultType="com.doll.doll_mall.pojo.Goods">
+        select * from goods where shopId = #{shopId} ORDER BY salesVolume desc limit 0,4
+    </select>
+
+
+</mapper>

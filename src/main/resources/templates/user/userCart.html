@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--设置网页的图标-->
+    <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
+    <title>Title</title>
+</head>
+<div th:insert="~{common/common::commonHeader}"></div>
+<div th:insert="~{common/common::#commonNav}"></div>
+<body>
+<table>
+    <tr>
+        <th>序号</th>
+        <th>名称</th>
+        <th>图片</th>
+        <th>尺寸</th>
+        <th>数量</th>
+        <th>总价</th>
+    </tr>
+  <tr th:each="carts,staut : ${Carts}">
+      <th th:text="${staut.count}"></th>
+      <th>
+          <img th:src="${carts.getGoodsPhoto1()}" style="height: 50px;width: 50px;">
+      </th>
+    <th th:text="${carts.getGoodsDescribe1()}"></th>
+    <th th:text="${carts.getGoodsSize()}"></th>
+    <th th:text="${carts.getGoodsCount()}"></th>
+    <th th:text="${carts.getTotalPrice()}"></th>
+  </tr>
+</table>
+</body>
+</html>

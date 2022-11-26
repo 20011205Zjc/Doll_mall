@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>个人信息</title>
+    <div th:insert="common/common::commonHeader"></div>
+</head>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<title>Stylish Profile Card</title>
+<script src="/static/js/updateUser.js"></script>
+<body>
+<div th:replace="~{common/userDateController::#userDateNav(active='one')}"></div>
+<div style="margin-top: 80px">
+    <div class="container">
+        <div class="row myCenter">
+            <div class="col-xs-6 col-md-6 col-center-block">
+    <div class="profile-container">
+        <div class="img-container">
+            <img th:src="${headPhoto}" alt="profile image">
+        </div>
+        <p class="info full-name" th:text="${userName}"></p>
+        <p class="info role" th:text="${userAge}">
+            <i class="fas fa-star"></i>
+        </p>
+        <p class="info place" th:text="${userGender}">
+            <i class="fas fa-map-marker-alt"></i>
+            中国,香港
+        </p>
+        <p class="info place">
+            <i class="fas fa-map-marker-alt"></i>
+            中国,香港
+        </p>
+
+        <div class="posts-info">
+            <p th:text="${userEmail}"></p>
+        </div>
+        <button class="action message" data-bs-toggle="modal" data-bs-target="#exampleModal">修改个人信息</button>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="/Shop" method="post" name="myForm" id="from">
+    <input type="hidden" th:value="${userId}" name="userId" id="userId">
+    <input type="button" class="btn btn-link" value="" id="sp" onclick="shop()">
+</form>
+<!--<a th:href="@{/}"><input type="button" value="地址管理"></a>-->
+<script>
+    var flag;
+   window.onload = function(){
+        var xhr = new XMLHttpRequest();
+        var userId = document.getElementById("userId").value;
+        var fm = new FormData;
+        fm.append("userId",userId)
+        xhr.onreadystatechange = function (){
+            if (this.responseText === "1"){
+                flag = false
+            }else {
+                flag = true
+            }
+        }
+        xhr.open("POST","/sp",true)
+        xhr.send(fm)
+    }
+
+    function shop(){
+        console.log(flag)
+        if (flag){
+            var from = document.getElementById("from");
+            from.submit();
+        }else {
+            alert("您已经是商家了！")
+        }
+    }
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">修改个人信息</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" id="myForm" name="myForm1" action="/getUser">
+                    <!--这个隐藏域用来存储用户登录的用户名在修改是使用-->
+                    <input type="hidden" id="userC" th:value="${userName}">
+                    <input type="hidden" name="userId" th:value="${userId}">
+                    <input type="hidden" name="userPassword" th:value="${userPassword}">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="username" >用户名</span>
+                        <input type="text" class="form-control" th:value="${userName}" name="userName" id="user1" onblur="user11()" onfocus="user3()">
+                        <span id="user2" style="font-size: 10px"></span>
+                        <span id="user3" style="font-size: 10px"></span>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span  class="input-group-text" id="userAge">生日</span>
+                        <input type="date" class="form-control" th:value="${userAge}" name="userAge">
+                    </div>
+                    <span></span>
+                    <div class="input-group mb-3">
+                        <span  class="input-group-text" id="gender">性别</span>
+                        <select name="userGender" class="form-select" th:value="${userGender}" th:name="userGender">
+                            <option selected>不愿透露</option>
+                            <option>男</option>
+                            <option>女</option>
+                        </select>
+                    </div>
+  <!--                  <div class="input-group mb-3">
+                        <span  class="input-group-text" id="">头像</span>
+                        <input type="hidden" name="headPhoto" th:value="${userId}">
+                        <input type="file" class="form-control" id="img" onchange="upload()">
+                    </div>
+                    <div style="border: solid 1px black;width: 100px; height: 100px" id="photo">
+                    </div>-->
+                    <div class="input-group mb-3">
+                    <div style="width: 100px;height: 100px;" id="photo">
+                        <img src="/static/img/tx.png" id="imgg" style="height: 100px;width: 100px;">
+                    </div>
+                    </div>
+                    <div class="input-group mb-3">
+                                <input type="hidden"  name="headPhoto" id="headP">
+                    <span class="input-group-text" id="">头像</span>
+                    <input type="file" class="form-control" name="file" onchange="upload()" style="margin-left: 1px">
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                        <input type="button" value="提交" class="btn btn-danger" onclick="sub()">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<style>
+    .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+</html>

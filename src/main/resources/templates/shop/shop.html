@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--设置网页的图标-->
+    <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
+    <title>商家注册</title>
+    <div th:insert="~{common/common::commonHeader}"></div>
+    <div th:insert="~{common/common::#commonNav}"></div>
+    <script src="/static/js/shop.js"></script>
+</head>
+<body>
+<div class="container col-6" style="margin-top: 50px">
+<form action="/insertShop" method="post" id="shopForm">
+    <div class="input-group mb-3">
+        <span class="input-group-text">商店的名字</span>
+        <input type="text" class="form-control" name="shopName" id="shopName" placeholder="2~16字" onblur="shopNameB()" onfocus="shopNameF()" onkeyup="this.value=this.value.replace(/\s+/g,'')">
+        <em id="shopError" style="color: tomato"></em>
+    </div>
+
+    <div class="input-group mb-3">
+        <img src="/static/img/tx.png" id="tx" style="height: 100px;width:100px">
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">商店的头像</span>
+        <input type="hidden" name="shopPhoto" id="tx1">
+        <input type="file" class="form-control" id="shopPhoto" onchange="ShopFile()">
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">商店的描述</span>
+        <input type="text" class="form-control" name="shopDescribe" id="shopDescribe" placeholder="5~25字" onblur="sdB()" onfocus="sdF()">
+        <em id="sdError" style="color: tomato"></em>
+    </div>
+
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Email Code" id="code" onkeyup="this.value=this.value.replace(/\s+/g,'')">
+        <span class="btn btn-outline-dark" onclick="codeShop()">获取验证码</span>
+    </div>
+    <input type="hidden" name="collectContent" id="collectContent" value="0"><!--收藏量-->
+    <input type="hidden" name="state" id="state" value="wait"><!--状态-->
+    <input type="hidden" th:value="${userEmail}" id="userEmail">
+    <input type="hidden" name="userId" id="userId" th:value="${userId}">
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-primary" type="button" onclick="tj()">提交申请</button>
+    </div>
+
+</form>
+
+</div>
+</body>
+</html>

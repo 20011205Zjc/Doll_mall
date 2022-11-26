@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--设置网页的图标-->
+    <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="~{common/common::#commonNav(active='main')}"></div>
+<div th:insert="common/common::commonHeader"></div>
+<input type="text" name="userName" onkeyup="lx()" id="userName">
+<script>
+    function lx(){
+        var xhr = new XMLHttpRequest();
+        var fm = new FormData;
+        var userName = document.getElementById("userName").value;
+        fm.append("userName",userName)
+        let html = ""
+        xhr.onreadystatechange = function (){
+            console.log(userName)
+            // var json2 = this.responseText
+            const json2 = '{"allUser":' + this.responseText + '}';
+            const obj = eval("(" + json2 + ")");
+            /*便利返回的数据*/
+            for (let i = 0;i<=5;i++){
+                html += "<p>"+obj.allUser[i].userName+"</p>"
+                document.getElementById("div1").innerHTML = html
+            }
+        }
+        xhr.open("POST","/lx",true)
+        xhr.send(fm)
+    }
+</script>
+
+<div id="div1"></div>
+
+</body>
+<style>
+/*    #div1{
+        border: 1px solid hotpink;
+        display: none;
+    }*/
+    p{
+        font-size: 20px;
+        border: 1px tomato solid;
+        width: 200px;
+    }
+</style>
+<!--=================================================================================-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+</html>

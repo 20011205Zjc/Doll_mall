@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doll.doll_mall.mapper.GoodsSizeMapper">
+    <!-- void insertSize(goodsSize goodsSize);-->
+    <insert id="insertSize">
+        insert into goodsSize values (null,#{goodsS},#{goodsM},#{goodsX},#{goodsName})
+    </insert>
+    <!--void updateSize(goodsSize goodsSize);-->
+    <update id="updateSize">
+        update goodssize
+    <set>
+        <if test="goodsS != null and goodsS != ''">
+            goodsS = #{goodsS},
+        </if>
+        <if test="goodsM != null and goodsM != ''">
+            goodsM = #{goodsM},
+        </if>
+        <if test="goodsX != null and goodsX != ''">
+            goodsX = #{goodsX},
+        </if>
+        <if test="goodsName != null and goodsName != ''">
+            goodsName = #{goodsName}
+        </if>
+    </set>
+        where goodsSizeId=#{goodsSizeId}
+
+    </update>
+</mapper>
