@@ -81,4 +81,7 @@ public class CartController {
         model.addAttribute("Carts",Carts);
         return "user/userCart";
     }
+
+    /*批量删除*/
+
 }
