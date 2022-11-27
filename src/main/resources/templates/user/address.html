@@ -8,6 +8,7 @@
 </head>
 <script src="/static/js/address.js"></script>
 <body>
+<div th:insert="~{common/alert::#alert}"></div>
 <div th:replace="~{common/common::commonHeader}"></div>
 <div th:replace="~{common/userDateController::#userDateNav(active='two')}"></div>
 <div class="container">
@@ -41,28 +42,9 @@
             <input type="hidden" th:value="${userAndAddress.getUserAreaId()}" name="userAreaId">
             <input type="hidden" th:value="${userId}" name="userId">
             <!--data-bs-toggle="modal" data-bs-target="#exampleModal1"-->
-            <input  type="submit" class="btn btn-danger" value="删除"  id="sc">
+            <button  type="button" class="btn btn-danger" th:value="${userAndAddress.getUserAreaId()}" onclick="confirm(this.value)"  id="sc">删除</button>
         </form>
 
-        <!--弹出确认框-->
-<!--        <form action="/delAddress" method="post">
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel1">地址管理</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="hidden"  name="userAreaId" id="userAreaId">
-                        <input type="hidden" name="userId" id="userId">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                        <input type="submit" value="确认" class="btn btn-danger">
-                    </div>
-                </div>
-            </div>
-        </div>
-        </form>-->
     </td>
 
 </tr>

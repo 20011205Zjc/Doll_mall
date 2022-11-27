@@ -50,4 +50,14 @@
     <delete id="deleteBatch">
         delete from cart where cartId in(${ids})
     </delete>
+
+    <!--int delCartById(Integer cartId);-->
+    <delete id="delCartById">
+        delete from cart where cartId = #{cartId}
+    </delete>
+
+    <!--    int delCartByUserId(Integer userId);-->
+    <delete id="delCartByUserId">
+        delete from cart where userId = #{userId}
+    </delete>
 </mapper>

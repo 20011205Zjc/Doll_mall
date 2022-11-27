@@ -22,7 +22,13 @@ public interface CartMapper {
     /*根据商品的名字删除*/
     int delCart(Integer goodsId);
 
+    /*根据购物车的id删除信息*/
+    int delCartById(Integer cartId);
+
     /*批量删除*/
     int deleteBatch(String ids);
+
+    /*根据用户的id删除购物车*/
+    int delCartByUserId(Integer userId);
 
 }

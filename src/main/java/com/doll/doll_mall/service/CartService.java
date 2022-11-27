@@ -37,4 +37,12 @@ public class CartService {
     public void delBatch(String ids){
         cartMapper.deleteBatch(ids);
     }
+
+    public void delCartById(Integer cartId){
+        cartMapper.delCartById(cartId);
+    }
+
+    public void delCartByUserId(Integer userId){
+        cartMapper.delCartByUserId(userId);
+    }
 }

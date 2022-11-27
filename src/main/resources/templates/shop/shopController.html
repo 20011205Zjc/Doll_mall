@@ -9,6 +9,7 @@
 <script src="/static/js/shopController.js"></script>
 <body>
 <div th:replace="~{common/common::commonHeader}"></div>
+<div th:replace="~{common/alert::#alert}"></div>
 <div id="commonNav">
     <nav class="navbar navbar-expand-md navbar-light bg-light " style="height: 40px">
         <div class="container-fluid">
@@ -78,34 +79,15 @@
         <th th:text="${goods.getSalesVolume()}" class="text-center"></th>
         <th th:text="${goods.getGoodsPrice()}" class="text-center"></th>
         <td class="text-center">
-            <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="bi bi-trash3"></i>删除</button>
+            <button class="btn btn-danger" type="button" th:value="${goods.getGoodsId()}" onclick="confirm(this.value)"><i class="bi bi-trash3"></i>删除</button>
             <button type="button" class="btn btn-warning" onclick="update()"><i class="bi bi-pencil-square" ></i>修改</button>
             <a th:href="@{/goods(getGoodsName=${goods.getGoodsName()},shopId = ${shopId})}" type="button" class="btn btn-warning" >查看详情<i class="bi bi-bag-heart"></i></a>
             <!--删除-->
-            <form action="/delGoods" method="post" id="scForm">
+           <!-- <form action="/delGoods" method="post" id="scForm">
                 <input type="hidden" name="id" th:value="${goods.getGoodsId()}">
                 <input type="hidden" name="userId" th:value="${userAndShop.getUserId()}">
-                <!--<button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="bi bi-trash3"></i>删除</button>-->
-
-            <!--删除的弹出框-->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <!--<h5 class="modal-title" id="exampleModalLabel">删除</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-                            <div class="modal-body">
-                                <em>是否确认删除</em>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                                    <input type="submit" value="提交" class="btn btn-danger">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </form>
+                <button class="btn btn-danger" type="button" th:value="${goods.getGoodsId()}" onclick=""><i class="bi bi-trash3"></i>删除</button>
+            </form>-->
             <!--修改-->
             <form action="/updateGoods" method="POST" id="updateGoods">
                 <input type="hidden" th:value="${goods.getGoodsId()}" name="goodsId">

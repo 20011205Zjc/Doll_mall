@@ -78,10 +78,19 @@ public class CartController {
     public String goCart(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         List<Cart> Carts = cartService.carts((Integer) session.getAttribute("userId"));
+        Integer userId = (Integer) session.getAttribute("userId");
+        model.addAttribute("userId",userId);
         model.addAttribute("Carts",Carts);
         return "user/userCart";
     }
 
     /*批量删除*/
+
+    /*根据id删除购物车信息*/
+    @RequestMapping("/delCartById")
+    public String delCartById(Integer id){
+        cartService.delCartByUserId(id);
+        return "redirect:/goCart";
+    }
 
 }

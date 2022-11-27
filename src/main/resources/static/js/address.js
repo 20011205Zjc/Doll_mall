@@ -106,12 +106,25 @@ function userAddress(){
 
 }
 
-/*function scQ(){
-    document.getElementById("userAreaId").value  = document.getElementById("Uid").value
-    document.getElementById("userId").value  = document.getElementById("ui").value
+/*刷新页面操作*/
+function re(){
+    location.reload();
+}
 
-    alert("log1:"+document.getElementById("userAreaId").value)
-    alert("log2:"+document.getElementById("userId").value)
-
-
-}*/
+/*删除地址*/
+function confirm(addressId){
+    var fm = new FormData;
+    fm.append("userAreaId",addressId)
+    hsycms.confirm('确定要这么做',
+        function(res){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST","/delAddress",false);
+        xhr.send(fm)
+            hsycms.success('点击了确定');
+            setTimeout(function() {re()}, 1500);  //1.5秒后将会调用执行re()函数
+        },
+        function(res){
+            hsycms.fail('点击了取消');
+        },
+    )
+}
