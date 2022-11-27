@@ -17,6 +17,7 @@
         <th>尺寸</th>
         <th>数量</th>
         <th>总价</th>
+        <th>操作</th>
     </tr>
   <tr th:each="carts,staut : ${Carts}">
       <th th:text="${staut.count}"></th>
@@ -27,6 +28,10 @@
     <th th:text="${carts.getGoodsSize()}"></th>
     <th th:text="${carts.getGoodsCount()}"></th>
     <th th:text="${carts.getTotalPrice()}"></th>
+      <th>
+          <td><a th:href="@{/}">删除</a></td>
+          <td><a th:href="@{/}">修改</a></td>
+      </th>
   </tr>
 </table>
 </body>

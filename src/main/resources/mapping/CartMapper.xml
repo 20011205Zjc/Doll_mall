@@ -45,4 +45,9 @@
     <delete id="delCart">
         delete from cart where goodsId = #{goodsId}
     </delete>
+
+    <!--    int deleteBatch(Integer ids);-->
+    <delete id="deleteBatch">
+        delete from cart where cartId in(${ids})
+    </delete>
 </mapper>

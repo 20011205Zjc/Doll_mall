@@ -27,4 +27,9 @@ public class CartTest {
     void updateGoods(){
         cartService.updateCart(new Cart(null,"23",null,"X",999,23,8,4));
     }
+
+    @Test
+    void del(){
+        cartService.delBatch("32,33,34");
+    }
 }

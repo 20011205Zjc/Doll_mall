@@ -21,4 +21,8 @@ public interface CartMapper {
 
     /*根据商品的名字删除*/
     int delCart(Integer goodsId);
+
+    /*批量删除*/
+    int deleteBatch(String ids);
+
 }
