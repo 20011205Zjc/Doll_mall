@@ -1,5 +1,4 @@
 function search(){
-    console.log("hi在")
     var goodsName = document.getElementById("goodsName").value;
     var xhr = new XMLHttpRequest();
     var fm = new FormData;

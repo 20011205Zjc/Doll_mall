@@ -59,4 +59,9 @@ public class goodsTest {
     void updateGoods(){
         goodsService.UpdateGoods(new Goods(22,"223333",null,"",null,"",null,2,null,"","",null,"",null,2,2,2,null));
     }
+
+    @Test
+    void test(){
+        System.out.println(goodsService.getGoodsByShopId(2));
+    }
 }

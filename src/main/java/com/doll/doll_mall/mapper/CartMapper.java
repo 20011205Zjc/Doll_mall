@@ -31,4 +31,7 @@ public interface CartMapper {
     /*根据用户的id删除购物车*/
     int delCartByUserId(Integer userId);
 
+    /*根据购物车id查询商品*/
+    Cart getCartByCartId(Integer cartId);
+
 }

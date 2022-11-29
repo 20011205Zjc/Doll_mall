@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doll.doll_mall.mapper.MiddleMapper">
+    <!--List<Middle> getAllMiddle();-->
+    <select id="getAllMiddle" resultType="com.doll.doll_mall.pojo.Middle">
+        select * from middle
+    </select>
+
+    <!--int delAll();-->
+    <delete id="delAll">
+        delete from middle
+    </delete>
+
+    <!--int delMiddleById();-->
+    <delete id="delMiddleById">
+        delete from middle where middleId = #{middleId}
+    </delete>
+
+    <!--int insertMiddle();-->
+    <insert id="insertMiddle">
+        insert into middle values (null,#{cartId},#{userId})
+    </insert>
+
+    <!--int delMiddle(Integer userId);-->
+    <delete id="delMiddle">
+        delete from middle where userId = #{userId}
+    </delete>
+</mapper>

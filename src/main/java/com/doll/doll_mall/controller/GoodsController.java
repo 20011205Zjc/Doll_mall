@@ -1,10 +1,12 @@
 package com.doll.doll_mall.controller;
 
 import com.doll.doll_mall.pojo.Goods;
+import com.doll.doll_mall.pojo.GoodsType;
 import com.doll.doll_mall.pojo.Shop;
 import com.doll.doll_mall.pojo.goodsSize;
 import com.doll.doll_mall.service.GoodsService;
 import com.doll.doll_mall.service.GoodsSizeService;
+import com.doll.doll_mall.service.GoodsTypeService;
 import com.doll.doll_mall.service.ShopService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class GoodsController {
     private ShopService shopService;
     @Autowired
     private GoodsSizeService goodsSizeService;
+    @Autowired
+    private GoodsTypeService goodsTypeService;
 
     /*返回所有的商品信息*/
 
@@ -36,6 +40,8 @@ public class GoodsController {
     public String getAllGoods(Model model,Integer pageNum){
         /*获取商品的分页信息*/
         PageInfo<Goods> page = goodsService.getAllGoodsPage(pageNum);
+        List<GoodsType> goodsTypes = goodsTypeService.goodsTypes();
+        model.addAttribute("goodsTypes",goodsTypes);
         //将分页数据共享到请求域中
         model.addAttribute("page",page);
         return "goods/Goods";
@@ -112,6 +118,16 @@ public class GoodsController {
         goodsSizeService.updateSize(goodsSize);
         System.out.println("修改商品："+goods);
         return "redirect:/spController?userId="+userId;
+    }
+
+    /*根据商品类型查询商品*/
+    @RequestMapping("/type")
+    public String getGoodsByTypeId(Integer typeId,Model model){
+        List<Goods> goodsByShopId = goodsService.getGoodsByShopId(typeId);
+        List<GoodsType> goodsTypes = goodsTypeService.goodsTypes();
+        model.addAttribute("goodsTypes",goodsTypes);
+        model.addAttribute("type",goodsByShopId);
+        return "/goods/goodsType";
     }
 
 }

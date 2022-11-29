@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/static/css/goods.css">
 <link rel="stylesheet" href="/static/css/search.css">
 <script src="/static/js/goods.js"></script>
+<script src="/static/js/goodsType.js"></script>
 
 <body style="background-image: url('/static/img/xx.jpg')">
 <div th:replace="~{common/common::#commonNav(active='sp')}"></div>
@@ -26,22 +27,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01" style="border-radius: 30px;background-color: tomato">
             <a class="navbar-brand disabled" style="font-family: LiSu">分类：</a>
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active" th:each="goodsTypes : ${goodsTypes}">
-                    <a class="nav-link" th:href="@{/type(typeId=${goodsTypes.getTypeId()})}" th:text="${goodsTypes.getTypeName()}"></a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="myUl" >
+                <li class="nav-item active" th:each="goodsTypes, staut : ${goodsTypes}" >
+                    <a class="nav-link active" th:href="@{/type(typeId=${goodsTypes.getTypeId()})}" th:text="${goodsTypes.getTypeName()}"></a>
                 </li>
-  <!--              <li class="nav-item">
-                    <a class="nav-link" href="#">搞怪玩偶</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">儿童玩偶</a>
-                </li>-->
             </ul>
         </div>
     </nav>
 
     <div class="product_area" style="background-color: wheat">
-        <div class="product" th:each="allGood : ${page.list}">
+        <div class="product" th:each="allGood : ${type}">
             <img th:src="${allGood.getGoodsPhoto1()}">
             <div class="product_price">价格：<em th:text="${allGood.getGoodsPrice()}">ytt</em>&nbsp;￥</div>
             <div class="product_des" th:text="${allGood.getGoodsDescribe1()}">嘟嘟猫咪玩偶埃斯蒂生活家居毛毛玩具娃娃</div>
@@ -55,18 +50,6 @@
         </div>
     </div>
 
-</div>
-<!--=====================================页码=================================================-->
-<div style="text-align: center;">
-    <a th:if="${page.hasPreviousPage}" th:href="@{/getAllGoods?pageNum=1}">首页</a>
-    <a th:if="${page.hasPreviousPage}" th:href="@{'/getAllGoods?pageNum='+${page.prePage}}">上一页</a>
-    <span th:each="num : ${page.navigatepageNums}">
-        <!--如果当前访问的页码和下面的数字对应，就改变对应数字的样式-->
-    <a th:if="${page.pageNum == num}" style="color: tomato" th:href="@{'/getAllGoods?pageNum='+${num}}" th:text="'['+${num}+']'"></a>
-    <a th:if="${page.pageNum != num}" th:href="@{'/getAllGoods?pageNum='+${num}}" th:text="${num}"></a>
-    </span>
-    <a th:if="${page.hasNextPage}" th:href="@{'/getAllGoods?pageNum='+${page.nextPage}}">下一页</a>
-    <a th:if="${page.hasNextPage}" th:href="@{'/getAllGoods?pageNum='+${page.pages}}">尾页</a>
 </div>
 
 <footer class="my-5 pt-5 text-muted text-center text-small">

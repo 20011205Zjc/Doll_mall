@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--设置网页的图标-->
+    <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
+    <title>提交订单</title>
+</head>
+<div th:insert="~{common/common::commonHeader}"></div>
+<script src="/static/js/jquery-3.6.0.min.js">
+
+</script>
+<body>
+
+<div class="container" >
+  <div class="py-5 text-center">
+    <div class="d-inline-flex align-items-center mb-4">
+      <img class="mx-auto" src="/static/img/logo.png" alt="logo" height="47">
+      <h2 class="mb-0 ms-2">确认下单</h2>
+    </div>
+    <p class="lead">填写并核对订单信息</p>
+  </div>
+  <main>
+    <div class="row g-5">
+      <div class="col-md-7 col-lg-8">
+        <!--结账表单-->
+        <h4 class="mb-3">收货地址</h4>
+        <form novalidate>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="username" class="form-label">收货人</label>
+              <input type="text" class="form-control" id="username" placeholder="" th:value="${userName}" required>
+              <div class="invalid-feedback">
+                请填写收货人
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="phone" class="form-label">邮箱</label>
+              <input type="email" class="form-control" id="phone" placeholder="" th:value="${userEmail}" required>
+              <div class="invalid-feedback">
+                请填写邮箱
+              </div>
+            </div>
+
+
+            <label for="address" class="form-label">选择地址</label>
+            <select class="form-select" id="address" aria-label="Default select example">
+
+            </select>
+
+
+          </div>
+
+<!--          <div class="form-check mt-4">
+            <input type="checkbox" class="form-check-input" id="save-info">
+            <label class="form-check-label" for="save-info">设为默认收货地址</label>
+          </div>-->
+
+          <hr class="my-4">
+
+          <h4 class="mb-3">支付方式</h4>
+
+          <div class="my-3">
+            <div class="form-check">
+              <input id="wechatpay" name="paymentMethod" type="radio" class="form-check-input" checked required>
+              <label class="form-check-label" for="wechatpay">微信支付</label>
+            </div>
+            <div class="form-check">
+              <input id="alipay" name="paymentMethod" type="radio" class="form-check-input" required>
+              <label class="form-check-label" for="alipay">支付宝支付</label>
+            </div>
+            <div class="form-check">
+              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" required>
+              <label class="form-check-label" for="credit">信用卡</label>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">提交订单</button>
+        </form>
+      </div>
+
+      <!---->
+      <script>
+        window.onload = function (){
+          var myUl = document.getElementById("myUl");
+          var li = myUl.getElementsByTagName("li");
+          document.getElementById("count").innerHTML = (li.length - 2).toString()
+          /*页面加载完成遍历出地址*/
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange=function (){
+            if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                var json = JSON.parse(this.responseText);
+                let html = ""
+                console.log(json)
+                for (let i=0;i<=5;i++){
+                  html +="<option>"+json[i].province+json[i].city+json[i].area+json[i].address+"</option>"
+                  document.getElementById("address").innerHTML = html
+                }
+              }
+            }
+          }
+          xhr.open("GET","/getUserAddress",true)
+          xhr.send()
+
+          var totalPrice = 0;
+          for (var i = 1;i<=li.length-2;i++){
+            var innerHTML = document.getElementById(i.toString()).innerHTML;
+            totalPrice = parseFloat(totalPrice) + parseFloat(innerHTML)
+          }
+          document.getElementById("totalPrice").innerHTML = totalPrice.toFixed(2);
+        }
+      </script>
+      <!---->
+      <div class="col-md-5 col-lg-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">您的结算清单</span>
+          <span class="badge bg-primary rounded-pill" id="count"></span>
+        </h4>
+        <ul class="list-group mb-3" id="myUl">
+          <li class="list-group-item d-flex justify-content-between" th:each="carts,staut:${carts}">
+            <div>
+              <h6 class="my-0" th:text="${carts.getGoodsDescribe1()}">爱因斯坦质能方程啤酒杯</h6>
+              <small class="text-muted" th:text="${carts.getGoodsCount()}">1</small>
+            </div>
+            <span class="text-muted" th:text="${carts.getTotalPrice()}" th:id="${staut.count}" >￥49.9</span>
+          </li>
+          <!---->
+          <!---->
+          <li class="list-group-item d-flex justify-content-between bg-light">
+            <div class="text-success">
+              <h6 class="my-0">运费优惠</h6>
+            </div>
+            <span class="text-success">−￥0</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>合计</span>
+            <strong id="totalPrice">￥84.8</strong>
+          </li>
+        </ul>
+
+        <form class="border p-2 rounded-2">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="促销码">
+            <button type="submit" class="btn btn-secondary" id="test1">使用优惠码</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <form method="post" action="/delCheck" id="delAll">
+    <input type="hidden" name="hello">
+  </form>
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2010–2021 前沿科技Artech All rights reserved</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="javascript:void(0);">关于我们</a></li>
+      <li class="list-inline-item"><a href="javascript:void(0);">联系我们</a></li>
+      <li class="list-inline-item"><a href="javascript:void(0);">隐私协议</a></li>
+    </ul>
+  </footer>
+</div>
+<script src="/static/js/jquery-3.6.0.min.js"></script>
+<script>
+
+  $(function(){
+    $('form').bind('submit', function(){
+      let $this = $(this);
+      if (!$this[0].checkValidity()) {
+        $this.addClass('was-validated');
+        return false;
+      }
+    })
+  })
+</script>
+
+<!--离开确认-->
+<script language="JavaScript">
+
+  get("a=beforeUnload");
+
+  window.addEventListener('unload', function() {
+    get("xhr=InUnload");
+    for (let i = 0; i < 30000; i++) {
+
+    }
+  })
+  function get(str) {
+    //创建xhr对象
+    var xhr;
+    if (window.XMLHttpRequest) {
+      xhr = new XMLHttpRequest();
+    } else {
+      xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    }
+    //发送请求
+    xhr.open('get', `/delCheck`, true);
+    xhr.send();
+    //同步接受响应
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        //实际操作
+      }
+    }
+  }
+
+</script>
+
+</body>
+</html>

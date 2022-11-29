@@ -141,5 +141,10 @@
         select * from goods where shopId = #{shopId} ORDER BY salesVolume desc limit 0,4
     </select>
 
+    <!--List<Goods> getGoodsByTypeId(Integer typeId);-->
+    <select id="getGoodsByTypeId" resultType="com.doll.doll_mall.pojo.Goods">
+        select * from goods where typeId = #{typeId}
+    </select>
+
 
 </mapper>

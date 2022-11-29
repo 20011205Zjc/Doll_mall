@@ -80,4 +80,9 @@ public class GoodsService {
         return goodsMapper.goods(shopId);
     }
 
+    /*根据类型id查询所有的商品*/
+    public List<Goods> getGoodsByShopId(Integer id){
+        return goodsMapper.getGoodsByTypeId(id);
+    }
+
 }

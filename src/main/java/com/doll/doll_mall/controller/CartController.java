@@ -1,9 +1,7 @@
 package com.doll.doll_mall.controller;
 
-import com.doll.doll_mall.pojo.Cart;
-import com.doll.doll_mall.pojo.Goods;
-import com.doll.doll_mall.service.CartService;
-import com.doll.doll_mall.service.GoodsService;
+import com.doll.doll_mall.pojo.*;
+import com.doll.doll_mall.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,6 +24,13 @@ public class CartController {
     private CartService cartService;
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private UserAddressService userAddressService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private MiddleService middleService;
 
     @RequestMapping("/addCart")
     public String addCart(Cart cart,Integer shopId,String goodsName,HttpServletRequest request){
@@ -64,14 +70,12 @@ public class CartController {
 
                 double countPrice = cart1.getTotalPrice()+cart.getTotalPrice();
                 cartService.updateCart(new Cart(cart1.getCartId(),null,null,null,count,countPrice,null,null));
-//                return "redirect:/";
                 return "redirect:/goods?getGoodsName="+goodsName+"&shopId="+shopId;
             }
         }
 
         cartService.insertCart(cart);
         return "redirect:/goods?getGoodsName="+goodsName+"&shopId="+shopId;
-//        return "redirect:/";
     }
 
     @RequestMapping("/goCart")
@@ -89,8 +93,41 @@ public class CartController {
     /*根据id删除购物车信息*/
     @RequestMapping("/delCartById")
     public String delCartById(Integer id){
+        System.out.println("执行了："+id);
+        cartService.delCartById(id);
+        return "redirect:/goCart";
+    }
+
+    /*清空购物车*/
+    @RequestMapping("/delAll")
+    public String delAll(Integer id){
+        System.out.println("执行了："+id);
         cartService.delCartByUserId(id);
         return "redirect:/goCart";
+    }
+
+    /*跳转到确认订单页面*/
+    @RequestMapping("/checkout")
+    public String checkout(HttpServletRequest request,Model model){
+        HttpSession session = request.getSession();
+        List<Middle> middles = middleService.middles();
+        ArrayList<Cart> carts = new ArrayList<>();
+        for (Middle middle : middles) {
+            Integer cartId = middle.getCartId();
+            System.out.println("购物车的id："+cartId);
+            carts.add(cartService.getCartByCartId(cartId));
+            System.out.println("中间表的："+carts);
+        }
+        model.addAttribute("carts",carts);
+        System.out.println("自定义的list集合"+carts);
+        Integer userId = (Integer) session.getAttribute("userId");
+        List<User> userById = userService.getUserById(userId);
+        for (User user : userById) {
+           model.addAttribute("userName",user.getUserName());
+           model.addAttribute("userEmail",user.getUserEmail());
+           model.addAttribute("userAddress",user.getUserAddresses());
+        }
+        return "user/checkout";
     }
 
 }

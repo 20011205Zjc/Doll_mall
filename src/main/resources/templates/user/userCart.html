@@ -14,22 +14,22 @@
 <div th:insert="~{common/common::#commonNav}"></div>
 <body>
 
-<table class="table table-hover container">
+<table class="table table-hover container" id="table">
     <tr style="background-color: #a7a7a7;">
         <th scope="col" class="text-center">选择</th>
         <th scope="col" class="text-center">序号</th>
         <th scope="col" class="text-center">图片</th>
         <th scope="col" class="text-center">名称</th>
-        <th scope="col" class="text-center">尺寸</th>
+        <th scope="col" class="text-center">名称</th>
         <th scope="col" class="text-center">数量</th>
         <th scope="col" class="text-center">总价</th>
         <th scope="col" class="text-center">操作</th>
     </tr>
-  <tr th:each="carts,staut : ${Carts}">
+  <tr th:each="carts,staut : ${Carts}" >
       <th class="text-center">
       <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
+          <input class="form-check-input" type="checkbox" th:value="${carts.getCartId()}" th:id="${staut.count}" onclick="addMiddle(this.value)">
+          <label class="form-check-label" th:for="${staut.count}">
           </label>
       </div>
       </th>
@@ -47,9 +47,22 @@
   </tr>
 </table>
 <input type="hidden" th:value="${userId}" id="userId">
-<a type="button" onclick="delAll()" class="text-danger"><i class="bi bi-exclamation-circle" style="margin-left: 1400px"></i> 清空购物车</a>
+<a type="button" onclick="delAll()" class="text-danger"><i class="bi bi-exclamation-circle" style="margin-left: 1100px"></i> 清空购物车</a>
 <div class="d-grid gap-2 col-6 mx-auto">
-    <button class="btn btn-outline-danger" type="button">结算</button>
+    <!--th:href="@{/checkout}"-->
+    <form action="/checkout" method="post" id="middleForm" >
+    </form>
+    <a onclick="hhh()" id="js" class="btn btn-outline-danger">结算</a>
 </div>
+
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2010–2021 前沿科技Artech All rights reserved</p>
+    <ul class="list-inline">
+        <li class="list-inline-item"><a href="javascript:void(0);">关于我们</a></li>
+        <li class="list-inline-item"><a href="javascript:void(0);">联系我们</a></li>
+        <li class="list-inline-item"><a href="javascript:void(0);">隐私协议</a></li>
+    </ul>
+</footer>
+
 </body>
 </html>

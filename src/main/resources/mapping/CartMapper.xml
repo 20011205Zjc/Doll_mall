@@ -60,4 +60,10 @@
     <delete id="delCartByUserId">
         delete from cart where userId = #{userId}
     </delete>
+
+    <!--Cart getCartByCartId(Integer cartId);-->
+    <select id="getCartByCartId" resultType="com.doll.doll_mall.pojo.Cart">
+        select *
+        from cart where cartId = #{cartId};
+    </select>
 </mapper>

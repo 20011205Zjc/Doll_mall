@@ -42,5 +42,8 @@ public interface GoodsMapper {
     /*根据商店的id查出这个商店下最热销的商品*/
     List<Goods> goods(Integer shopId);
 
+    /*根据类型id查询商品*/
+    List<Goods> getGoodsByTypeId(Integer typeId);
+
 
 }

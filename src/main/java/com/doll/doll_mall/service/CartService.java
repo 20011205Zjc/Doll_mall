@@ -45,4 +45,8 @@ public class CartService {
     public void delCartByUserId(Integer userId){
         cartMapper.delCartByUserId(userId);
     }
+
+    public Cart getCartByCartId(Integer cartId){
+        return cartMapper.getCartByCartId(cartId);
+    }
 }
