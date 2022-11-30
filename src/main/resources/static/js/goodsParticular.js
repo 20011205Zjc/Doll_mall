@@ -261,3 +261,11 @@ function cart(){
     document.getElementById("total").value = document.getElementById("zj").innerHTML
 
 }
+
+/*立即购买*/
+function bty(){
+   cart();
+   var cartFrom = document.getElementById("CartFrom");
+   cartFrom.action = "/checkout"
+    cartFrom.submit();
+}

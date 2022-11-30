@@ -74,8 +74,8 @@
                                                 <div class="total">来自商店:<span th:text="${shopName}"></span></div>
                                                 <div class="total">总价:<span id="zj" style="color: red ;margin-left: 5px" th:text="${goodsAndGoodsSize.getGoodsPrice()}"></span></div>
 
-                                                <div class="operate_btn" id="div1">
-                                                    <button type="button"  class="buy_btn">立即购买</button>
+                                                <div class="operate_btn" id="div1" style="display: none">
+                                                    <button  type="button"  class="buy_btn" id="byu" onclick="bty()">立即购买</button>
                                                     <button type="button" class="add_cart" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="cart()">加入购物车</button>
                                                 </div>
 
@@ -97,7 +97,7 @@
                                                 </div>
 
                                                 <div class="d-grid gap-2">
-                                                <div class="btn btn-outline-warning" id="div2" >
+                                                <div class="btn btn-outline-warning" id="div2" style="display: none">
                                                     该商品暂时无货
                                                 </div>
                                                 </div>
@@ -125,7 +125,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="/addCart">
+                <form method="post" action="/addCart" id="CartFrom">
+                    <input type="hidden" value="1" name="code">
                     <span>商品的名称：<em class="fw-light" th:text="${goodsAndGoodsSize.getGoodsDescribe1()}"></em></span>
 
                     <input type="hidden" th:value="${goodsAndGoodsSize.getGoodsDescribe1()}" name="goodsDescribe1">
@@ -217,7 +218,7 @@
 
 <!--==================================================================================-->
 <div class="container px-4">
-    <h2 class="pb-2 border-bottom">本站店热销</h2>
+    <h2 class="pb-2 border-bottom">本店热销</h2>
     <div class="row g-5 py-5">
         <!--============================================================-->
         <div class="col-md-3 d-flex flex-md-column" th:each="goods : ${goods} ">

@@ -108,8 +108,28 @@ public class CartController {
 
     /*跳转到确认订单页面*/
     @RequestMapping("/checkout")
-    public String checkout(HttpServletRequest request,Model model){
+    public String checkout(HttpServletRequest request,Model model,Cart cart,Integer code){
+        /*用户信息返回*/
         HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+        List<User> userById = userService.getUserById(userId);
+        for (User user : userById) {
+            model.addAttribute("userName",user.getUserName());
+            model.addAttribute("userEmail",user.getUserEmail());
+            model.addAttribute("userAddress",user.getUserAddresses());
+        }
+
+        /*判断要返回的商品*/
+        try {
+            if (code == 1){
+                model.addAttribute("carts",cart);
+                System.out.println("执行了"+code+"||"+cart);
+                return "user/checkout";
+            }
+        }catch (Exception e){
+            System.out.println("没有code");
+        }
+
         List<Middle> middles = middleService.middles();
         ArrayList<Cart> carts = new ArrayList<>();
         for (Middle middle : middles) {
@@ -120,14 +140,8 @@ public class CartController {
         }
         model.addAttribute("carts",carts);
         System.out.println("自定义的list集合"+carts);
-        Integer userId = (Integer) session.getAttribute("userId");
-        List<User> userById = userService.getUserById(userId);
-        for (User user : userById) {
-           model.addAttribute("userName",user.getUserName());
-           model.addAttribute("userEmail",user.getUserEmail());
-           model.addAttribute("userAddress",user.getUserAddresses());
-        }
         return "user/checkout";
+
     }
 
 }

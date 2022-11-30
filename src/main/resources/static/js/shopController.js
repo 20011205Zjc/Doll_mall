@@ -1,4 +1,5 @@
-function update(){
+function update(id){
+    document.getElementById("goodsId").value = id;
     var updateGoods = document.getElementById("updateGoods");
     updateGoods.submit();
 }

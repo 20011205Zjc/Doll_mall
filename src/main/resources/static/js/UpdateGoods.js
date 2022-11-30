@@ -217,16 +217,26 @@ function d55(){
 
 
 function sub(){
-    goodsname2()
-    goodsname()
-    if (flag){
-        var myFrom = document.getElementById("myForm");
+/*    goodsname2()
+    goodsname()*/
+/*    if (flag){*/
+        var myFrom = document.getElementById("myForm1");
+    console.log(123)
+    if (document.getElementById("goodsX").value==='' || document.getElementById("goodsX").value===null ){
+        document.getElementById("goodsX").value=0
+    }
+    if (document.getElementById("goodsS").value==='' || document.getElementById("goodsS").value===null ){
+        document.getElementById("goodsS").value=0
+    }
+    if (document.getElementById("goodsM").value==='' || document.getElementById("goodsM").value===null ){
+        document.getElementById("goodsM").value=0
+    }
         myFrom.submit();
         alert("添加成功")
-    }else {
+/*    }else {
         alert(flag)
         alert("格式有误，请检查")
-    }
+    }*/
 
 }
 

@@ -80,7 +80,7 @@
         <th th:text="${goods.getGoodsPrice()}" class="text-center"></th>
         <td class="text-center">
             <button class="btn btn-danger" type="button" th:value="${goods.getGoodsId()}" onclick="confirm(this.value)"><i class="bi bi-trash3"></i>删除</button>
-            <button type="button" class="btn btn-warning" onclick="update()"><i class="bi bi-pencil-square" ></i>修改</button>
+            <button type="button" class="btn btn-warning" onclick="update(this.value)" th:value="${goods.getGoodsId()}"><i class="bi bi-pencil-square" ></i>修改</button>
             <a th:href="@{/goods(getGoodsName=${goods.getGoodsName()},shopId = ${shopId})}" type="button" class="btn btn-warning" >查看详情<i class="bi bi-bag-heart"></i></a>
             <!--删除-->
            <!-- <form action="/delGoods" method="post" id="scForm">
@@ -90,7 +90,7 @@
             </form>-->
             <!--修改-->
             <form action="/updateGoods" method="POST" id="updateGoods">
-                <input type="hidden" th:value="${goods.getGoodsId()}" name="goodsId">
+                <input type="hidden" id="goodsId" name="goodsId">
                 <input type="hidden" th:value="${goods.getGoodsName()}" name="goodsName">
                 <input type="hidden" th:value="${goods.getGoodsDescribe1()}" name="goodsDescribe1">
                 <input type="hidden" th:value="${goods.getGoodsDescribe2()}" name="goodsDescribe2">
