@@ -12,9 +12,9 @@
 <body>
 <div class="row myCenter">
     <div class="col-xs-6 col-md-6 col-center-block">
-<form action="/upGoods" method="post" class="row g-3" name="myForm" id="myForm1">
+<form action="/upGoods" method="post" class="row g-3" name="myForm" id="myForm1" th:each="goods : ${goods}">
     <input type="hidden" name="userId" th:value="${userId}">
-    <input type="hidden" th:value="${goods.getGoodsId()}" name="goodsId">
+    <input type="hidden" th:value="${goodsId}" name="goodsId">
     <div class="col-6">
 <!--        <label class="form-label">商品的名字<em style="color: red;margin-left: 10px" id="em1"></em></label>-->
         <input type="hidden" th:value="${goods.getGoodsName()}" id="hiName">
@@ -85,9 +85,10 @@
     <option selected value="1">其他</option>
     <option value="2">狗</option>
 </select>
-    S码的库存：<input type="text" name="goodsS" id="goodsS" oninput="this.value = this.value.replace(/[^1-9]/g, '');"><br>
-    M码的库存：<input type="text" name="goodsM" oninput="this.value = this.value.replace(/[^1-9]/g, '');"><br>
-    X码的库存：<input type="text" name="goodsX" oninput="this.value = this.value.replace(/[^1-9]/g, '');"><br>
+    <input type="hidden" th:value="${sizeId}" name="goodsSizeId">
+    S码的库存：<input th:value="${S}" type="text" name="goodsS" id="goodsS" oninput="this.value = this.value.replace(/[^0-9]/g, '');"><br>
+    M码的库存：<input th:value="${M}" type="text" name="goodsM" oninput="this.value = this.value.replace(/[^0-9]/g, '');"><br>
+    X码的库存：<input th:value="${X}" type="text" name="goodsX" oninput="this.value = this.value.replace(/[^0-9]/g, '');"><br>
     <input type="hidden" th:value="${sizeId}">
     <input type="hidden" th:value="${userId}" name="userId">
     <input type="hidden" th:value="${goods.getShopId()}" name="shopId">

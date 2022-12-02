@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -87,10 +89,8 @@ public class GoodsController {
     /*将查询到的商品返回*/
     @RequestMapping("/getGoodsLikeByGoodsDescribe1")
     public String  getGoodsLikeByGoodsDescribe1(String goodsDescribe1,Model model,Integer pageNum){
-        System.out.println("pageNum:"+pageNum);
-        System.out.println("失去："+goodsDescribe1);
+
         PageInfo<Goods> page = goodsService.getGoodsByLikePage(pageNum, goodsDescribe1);
-        System.out.println(page);
         model.addAttribute("search","关于:\""+goodsDescribe1+"\"的商品");
         model.addAttribute("page",page);
         model.addAttribute("goodsDescribe1",goodsDescribe1);
@@ -99,24 +99,29 @@ public class GoodsController {
 
     /*跳转到修改商品*/
     @RequestMapping("/updateGoods")
-    public String UpdateGoods(Goods goods,Model model,Integer userId){
-        model.addAttribute("goods",goods);
+    public String UpdateGoods(Goods goods,Model model,Integer userId,Integer goodsId,String goodsName){
+        List<Goods> goodsById = goodsService.getGoodsById(goodsId);
+        Goods goodsAndGoodsSize = goodsService.getGoodsAndGoodsSize(goodsName);
+        model.addAttribute("M",goodsAndGoodsSize.getGoodsSize().getGoodsM());
+        model.addAttribute("S",goodsAndGoodsSize.getGoodsSize().getGoodsS());
+        model.addAttribute("X",goodsAndGoodsSize.getGoodsSize().getGoodsX());
+        model.addAttribute("sizeId",goodsAndGoodsSize.getGoodsSize().getGoodsSizeId());
+//        model.addAttribute("goods",goods);
+        model.addAttribute("goodsId",goodsId);
+        model.addAttribute("goods",goodsById);
         model.addAttribute("userId",userId);
 //        model.addAttribute("sizeId",goods.getGoodsSize().getGoodsSizeId());
-        System.out.println("跳转时的用户id："+userId);
-        System.out.println("跳转时的商店id："+goods.getShopId());
         model.addAttribute("goodsName",UUID.randomUUID());
         return "goods/updateGoods";
     }
 
     /*修改商品*/
     @RequestMapping("/upGoods")
-    public String UpGoods(Goods goods, Integer userId, goodsSize goodsSize){
-        System.out.println("修改商品用户ID："+userId);
-        System.out.println(goods.getShopId());
+    public String UpGoods(Goods goods, goodsSize goodsSize, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Object userId = session.getAttribute("userId");
         goodsService.UpdateGoods(goods);
         goodsSizeService.updateSize(goodsSize);
-        System.out.println("修改商品："+goods);
         return "redirect:/spController?userId="+userId;
     }
 

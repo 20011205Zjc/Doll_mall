@@ -15,7 +15,6 @@ import com.qiniu.util.Auth;
  * Author: rj-2022-zjc-2000005955
  * Time:2022/11/1 18:49
  */
-/*
 public class QiniuUtils {
     public  static String accessKey = "9Z17gGDpt-ZCbEL4Zn5S8Jyu_KTVjIbmC337-USA";
     public  static String secretKey = "fUdk7EGMYAZmIRpUfNBpg49bZy14L6WJdjWmrI8X";
@@ -86,12 +85,12 @@ public class QiniuUtils {
         }
     }
 }
-*/
 
 /*=========================国内=============================================*/
 /**
  * 七牛云工具类
  */
+/*
 public class QiniuUtils {
     public  static String accessKey = "OXaXhbxZFS2cxcUEmALbRQh_OjnDr0FgxCXkyq1E";
     public  static String secretKey = "HVXtqMDKx5KZgttKjQkhFkEtXXWXaeOgHH_VSbiu";
@@ -164,3 +163,4 @@ public class QiniuUtils {
 }
 
 
+*/

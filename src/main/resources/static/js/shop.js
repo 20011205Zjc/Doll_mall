@@ -1,5 +1,4 @@
 let code;
-let flag;
 
 function codeShop(){
     var userEmail = document.getElementById("userEmail").value;
@@ -29,6 +28,7 @@ function ShopFile(){
 }
 
 /*失去焦点时验证商店名字*/
+let flag = true;
 function shopNameB(){
     var shopName = document.getElementById("shopName").value;
     var xhr = new XMLHttpRequest();
@@ -86,6 +86,7 @@ function tj(){
     sdB()
     var code1 = document.getElementById("code").value;
     if (code1 === code && flag && sd){
+        console.log("这个2")
         var shopForm = document.getElementById("shopForm");
         alert("申请成功，请重新登陆！")
         shopForm.submit()

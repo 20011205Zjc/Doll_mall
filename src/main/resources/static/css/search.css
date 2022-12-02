@@ -1,9 +1,10 @@
 .lx{
-    background-color: pink;
+    background-color: rgba(210, 192, 255, 0.67);
 }
 .lx p{
     padding-left: 10px;
     margin-top: 10px;
+    color: black;
 }
 .lx p:hover{
     cursor: pointer;

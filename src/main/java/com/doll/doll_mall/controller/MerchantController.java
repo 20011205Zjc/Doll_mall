@@ -74,7 +74,6 @@ public class MerchantController {
     @ResponseBody
     public String Rsp(int userId){
         List<User> userById = userService.getUserById(userId);
-        System.out.println("商家判断"+userId);
         for (User user : userById) {
             if (Objects.equals(user.getRoles(), "merchant")){
                 System.out.println("执行了1");
@@ -96,7 +95,6 @@ public class MerchantController {
         List<Goods> goods = shopService.getShopAndGoods(shopId).getGoods();
         model.addAttribute("goods",goods);
         model.addAttribute("shopId",shopId);
-        System.out.println("这个是查询商店下的商品"+goods);
         model.addAttribute("userAndShop",userAndShop);
         return "shop/shopController";
     }
@@ -118,8 +116,6 @@ public class MerchantController {
     /*添加商品*/
     @RequestMapping("/insertGoods")
     public String insertGoods(Goods goods, goodsSize goodsSize,int userId){
-        System.out.println("执行了！");
-        System.out.println("goods的值："+goods);
         goodsService.insertGoods(goods);
         goodsSizeService.insertSize(goodsSize);
         return "redirect:spController?userId="+userId;
@@ -141,7 +137,6 @@ public class MerchantController {
     /*删除商品*/
     @RequestMapping("/delGoods")
     public String delGoods(Integer id,Integer userId){
-        System.out.println("删除的id："+id);
         cartService.delCart(id);
         goodsService.DelGoods(id);
         return "redirect:/spController?userId="+userId;

@@ -214,7 +214,6 @@ function zc(){
         alert("注册成功！")
         var MyForm = document.getElementById("MyForm");
         MyForm.submit();
-        alert("tjiao")
     }
 
 }

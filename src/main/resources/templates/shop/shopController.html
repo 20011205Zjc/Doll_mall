@@ -80,7 +80,7 @@
         <th th:text="${goods.getGoodsPrice()}" class="text-center"></th>
         <td class="text-center">
             <button class="btn btn-danger" type="button" th:value="${goods.getGoodsId()}" onclick="confirm(this.value)"><i class="bi bi-trash3"></i>删除</button>
-            <button type="button" class="btn btn-warning" onclick="update(this.value)" th:value="${goods.getGoodsId()}"><i class="bi bi-pencil-square" ></i>修改</button>
+            <a type="button" class="btn btn-warning"  th:value="${goods.getGoodsId()}" th:href="@{/updateGoods(goodsName=${goods.getGoodsName()},goodsId=${goods.getGoodsId()})}"><i class="bi bi-pencil-square" ></i>修改</a>
             <a th:href="@{/goods(getGoodsName=${goods.getGoodsName()},shopId = ${shopId})}" type="button" class="btn btn-warning" >查看详情<i class="bi bi-bag-heart"></i></a>
             <!--删除-->
            <!-- <form action="/delGoods" method="post" id="scForm">
@@ -90,24 +90,25 @@
             </form>-->
             <!--修改-->
             <form action="/updateGoods" method="POST" id="updateGoods">
-                <input type="hidden" id="goodsId" name="goodsId">
-                <input type="hidden" th:value="${goods.getGoodsName()}" name="goodsName">
-                <input type="hidden" th:value="${goods.getGoodsDescribe1()}" name="goodsDescribe1">
-                <input type="hidden" th:value="${goods.getGoodsDescribe2()}" name="goodsDescribe2">
-                <input type="hidden" th:value="${goods.getGoodsDescribe3()}" name="goodsDescribe3">
-                <input type="hidden" th:value="${goods.getGoodsDescribe4()}" name="goodsDescribe4">
-                <input type="hidden" th:value="${goods.getGoodsDescribe5()}" name="goodsDescribe5">
-                <input type="hidden" th:value="${goods.getGoodsPrice()}" name="goodsPrice">
-                <input type="hidden" th:value="${goods.getGoodsPhoto1()}" name="goodsPhoto1">
-                <input type="hidden" th:value="${goods.getGoodsPhoto2()}" name="goodsPhoto2">
-                <input type="hidden" th:value="${goods.getGoodsPhoto3()}" name="goodsPhoto3">
-                <input type="hidden" th:value="${goods.getGoodsPhoto4()}" name="goodsPhoto4">
-                <input type="hidden" th:value="${goods.getGoodsPhoto5()}" name="goodsPhoto5">
-                <input type="hidden" th:value="${goods.getRecommend()}" name="recommend">
-                <input type="hidden" th:value="${goods.getSalesVolume()}" name="salesVolume">
-                <input type="hidden" th:value="${shopId}" name="shopId">
-                <input type="hidden" th:value="${goods.getTypeId()}" name="typeId">
-                <input type="hidden" th:value="${userAndShop.getUserId()}" name="userId">
+               <input type="hidden" id="goodsId" name="goodsId">
+               <input type="hidden" id="goodsName" name="goodsName" th:value="${goods.getGoodsName()}">
+                <!--  <input type="hidden" th:value="${goods.getGoodsName()}" name="goodsName">
+                 <input type="hidden" th:value="${goods.getGoodsDescribe1()}" name="goodsDescribe1">
+                 <input type="hidden" th:value="${goods.getGoodsDescribe2()}" name="goodsDescribe2">
+                 <input type="hidden" th:value="${goods.getGoodsDescribe3()}" name="goodsDescribe3">
+                 <input type="hidden" th:value="${goods.getGoodsDescribe4()}" name="goodsDescribe4">
+                 <input type="hidden" th:value="${goods.getGoodsDescribe5()}" name="goodsDescribe5">
+                 <input type="hidden" th:value="${goods.getGoodsPrice()}" name="goodsPrice">
+                 <input type="hidden" th:value="${goods.getGoodsPhoto1()}" name="goodsPhoto1">
+                 <input type="hidden" th:value="${goods.getGoodsPhoto2()}" name="goodsPhoto2">
+                 <input type="hidden" th:value="${goods.getGoodsPhoto3()}" name="goodsPhoto3">
+                 <input type="hidden" th:value="${goods.getGoodsPhoto4()}" name="goodsPhoto4">
+                 <input type="hidden" th:value="${goods.getGoodsPhoto5()}" name="goodsPhoto5">
+                 <input type="hidden" th:value="${goods.getRecommend()}" name="recommend">
+                 <input type="hidden" th:value="${goods.getSalesVolume()}" name="salesVolume">
+                 <input type="hidden" th:value="${shopId}" name="shopId">
+                 <input type="hidden" th:value="${goods.getTypeId()}" name="typeId">
+                 <input type="hidden" th:value="${userAndShop.getUserId()}" name="userId">-->
 <!--                <input type="hidden" th:value="${goods.getGoodsSize().getGoodsSizeId()}" name="goodsSizeId">-->
                 <!--<button type="submit" class="btn btn-warning"><i class="bi bi-pencil-square"></i>修改</button>-->
             </form>

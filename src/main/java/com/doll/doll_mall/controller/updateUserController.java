@@ -62,8 +62,8 @@ public class updateUserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        return "http://zjc-img.online/"+fileName;
-        return "http://rknousjbx.hd-bkt.clouddn.com/"+fileName;
+        return "http://zjc-img.online/"+fileName;
+//        return "http://rknousjbx.hd-bkt.clouddn.com/"+fileName;
     }
 
     /*ajax查询用户的信息*/
