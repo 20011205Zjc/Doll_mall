@@ -25,7 +25,7 @@
       <div class="col-md-7 col-lg-8">
         <!--结账表单-->
         <h4 class="mb-3">收货地址</h4>
-        <form novalidate>
+        <form novalidate id="checkOutForm">
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="username" class="form-label">收货人</label>
@@ -45,7 +45,6 @@
 
             <label for="address" class="form-label">选择地址</label>
             <select class="form-select" id="address" aria-label="Default select example">
-
             </select>
 
 
@@ -71,13 +70,14 @@
 
           <hr class="my-4">
 
-          <button class="w-100 btn btn-primary btn-lg" onclick="order()">提交订单</button>
+          <button type="button" class="w-100 btn btn-primary btn-lg" onclick="checkOut()">提交订单</button>
         </form>
       </div>
 
       <!---->
       <script>
         window.onload = function (){
+
           var myUl = document.getElementById("myUl");
           var li = myUl.getElementsByTagName("li");
           document.getElementById("count").innerHTML = (li.length - 2).toString()
@@ -116,14 +116,17 @@
         <ul class="list-group mb-3" id="myUl">
           <li class="list-group-item d-flex justify-content-between" th:each="carts,staut:${carts}">
             <div>
-              <input type="hidden" th:value="${carts.getGoodsId()}">
+
               <h6 class="my-0" th:text="${carts.getGoodsDescribe1()}">爱因斯坦质能方程啤酒杯</h6>
               <small class="text-muted" th:text="${carts.getGoodsCount()}">1</small>
             </div>
             <span class="text-muted" th:text="${carts.getTotalPrice()}" th:id="${staut.count}" >￥49.9</span>
+            <!--========================================================================================-->
+            <input type="hidden" th:value="${carts.getGoodsId()}" th:id="${'goodsId'+staut.count}">
+            <input type="hidden" th:value="${carts.getGoodsSize()}" th:id="${'size'+staut.count}">
+            <input type="hidden" th:value="${carts.getGoodsCount()}" th:id="${'count'+staut.count}">
+            <!--=======================================================================================-->
           </li>
-          <!---->
-
           <!---->
           <li class="list-group-item d-flex justify-content-between bg-light">
             <div class="text-success">

@@ -5,66 +5,179 @@
     <!--设置网页的图标-->
     <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
     <title>商品列表</title>
-    <div th:insert="common/common::commonHeader"></div>
 </head>
 <link rel="stylesheet" href="/static/css/goods.css">
 <link rel="stylesheet" href="/static/css/search.css">
 <script src="/static/js/goods.js"></script>
+<!-- bootstrap -->
+<link rel="stylesheet" href="/static/css/bootstrap.min-v4.6.0.css">
+<!-- fontawesome -->
+<link rel="stylesheet" href="/static/css/fontawesome.all.min-v5.15.3.css">
+<!-- lineawesome -->
+<link rel="stylesheet" href="/static/css/line-awesome.min-v1.0.3.css">
+<!-- slick css -->
+<link rel="stylesheet" href="/static/css/slick.min.css">
+<!-- animate css -->
+<link rel="stylesheet" href="/static/css/animate.css">
+<!-- magnific popup css -->
+<link rel="stylesheet" href="/static/css/magnific-popup.css">
+<!-- Main Stylesheet -->
+<link rel="stylesheet" href="/static/css/main-style.css">
+<!-- responsive Stylesheet -->
+<link rel="stylesheet" href="/static/css/responsive.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 
-<body style="background-color: rgba(255,192,203,0.49)">
-<div th:replace="~{common/common::#commonNav(active='sp')}"></div>
-<!--=====================================================-->
-<div th:insert="~{common/search::#search}"></div>
-<div id="lx" class="lx" style="width: 515px; border-radius: 20px;border: red 1px solid;margin-left: 300px;margin-top: 0;display: none;position: absolute; z-index: 10" >
-
+<!-- jquery -->
+<script src="/static/js/jquery-3.6.0.min.js"></script>
+<!-- jquery migrate -->
+<script src="/static/js2/jquery-migrate-3.3.2.js"></script>
+<!-- bootstrap -->
+<script src="/static/js2/bootstrap.min-v4.6.0.js"></script>
+<!-- slick js -->
+<script src="/static/js2/slick.min.js"></script>
+<!-- wow js -->
+<script src="/static/js2/wow.js"></script>
+<!-- magnific popup js -->
+<script src="/static/js2/jquery.magnific-popup.min.js"></script>
+<!-- popper -->
+<script src="/static/js2/popper.min.js"></script>
+<!-- main js -->
+<script src="/static/js2/main.js"></script>
+<body>
+<!--加载条-->
+<div class="preloader-inner">
+    <ul class="preloader-main">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
 </div>
-<!--=======================================================-->
-<div class="ancester" style="margin-top: 50px;border-radius: 20px">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:rgba(255,192,203,0.49) ">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01" style="border-radius: 30px;background-color: #A0B2D4">
-            <a class="navbar-brand disabled" style="font-family: LiSu;color: white">分类：</a>
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active" th:each="goodsTypes : ${goodsTypes}">
-                    <a class="nav-link" style="color: white" th:href="@{/type(typeId=${goodsTypes.getTypeId()})}" th:text="${goodsTypes.getTypeName()}"></a>
+<!-- preloader end -->
+
+<!-- nav area start -->
+<nav style="background-color: rgba(255,192,203,0.69)" class="navbar navbar-area navbar-expand-lg has-topbar nav-style-01 index-01">
+    <div class="container nav-container custom-header-container">
+        <div class="responsive-mobile-menu">
+            <div class="logo-wrapper">
+                <a th:href="@{/}" class="logo">
+                    <img src="/static/img/log.png" alt="logo">
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bizcoxx_main_menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bizcoxx_main_menu">
+            <ul class="navbar-nav color-black">
+                <li>
+                    <!--th:class="active=='index'?'text-primary':''"-->
+                    <a  th:href="@{/}" th:class="${active=='index'?'text-primary':''}">首页</a>
+                </li>
+                <li>
+                    <a  th:href="@{/getAllGoods?pageNum=1}" th:class="text-primary">商店</a>
+                </li>
+                <li>
+                    <a th:href="@{/goCart}" ><i class="bi bi-cart3"></i>我的购物车</a>
                 </li>
             </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+<!-- navbar area end -->
+<div class="search-box-wrapper" id="searchCommon">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <form class="form" action="/getGoodsLikeByGoodsDescribe1?pageNum=1" method="post" id="searchForm">
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="请输入商品名称" id="goodsName" onkeyup="search(this.value=this.value.replace(/\s+/g,''))" name="goodsDescribe1">
+                    </div>
+                    <div class="btn-wrapper">
+                        <button type="button" class="btn-default" onclick="isEmp()"><i class="fas fa-search"></i></button>
+                    </div>
+                    <br>
+                </form>
+                <div class="lx border border-2" id="lx" style="display: none;position: absolute; z-index: 10;background-color: white;width: 723px;margin-top: 0">
 
-    <div class="product_area" style="background-color: white">
-        <div class="product" th:each="allGood : ${page.list}" style="background-color: rgba(222,189,199,0.76);border-radius: 10px">
-            <img th:src="${allGood.getGoodsPhoto1()}">
-            <div class="product_price">价格：<em th:text="${allGood.getGoodsPrice()}">ytt</em>&nbsp;￥</div>
-            <div class="product_des" th:text="${allGood.getGoodsDescribe1()}" style="color: white">嘟嘟猫咪玩偶埃斯蒂生活家居毛毛玩具娃娃</div>
-            <div class="product_shop" style="color: white">销量：<em th:text="${allGood.getSalesVolume()}"></em>+</div>
-            <form action="/goods" method="post">
-                <input type="hidden" th:value="${allGood.getShopId()}" name="shopId">
-                <input type="hidden" th:value="${allGood.getGoodsName()}" name="getGoodsName">
-                <button type="submit" class="btn btn-warning">了解详情<i class="bi bi-bag-heart"></i></button>
-            </form>
-
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
+<!--  -->
+
+<div th:insert="~{goods/goodsType::#nv1(active='all')}"></div>
+
+<div class="author-aritcle-area-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title-wrapper-index-02">
+                    <h2 class="section-title">全部玩偶</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--///////////////////////////////////////////////////////////////////-->
+            <div class="col-md-6 col-lg-4" th:each="allGood:${page.list}">
+                <div class="single-blog-list-nature">
+                    <div class="img-box">
+                        <img th:src="${allGood.getGoodsPhoto1()}" alt="image" >
+                    </div>
+                    <div class="content">
+                        <h3 class="title">
+                            <a href="#" th:text="${allGood.getGoodsDescribe1()}">In every walk in with nature one receives far more than he seeks.</a>
+                        </h3>
+                        <div class="post-meta">
+                            <ul class="list">
+                                <li class="list-item">
+                                    <a href="#">
+                                        <i class="las la-tag icon"></i>
+                                        <span class="text" th:text="${allGood.getGoodsPrice()}"></span>￥
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a th:href="@{/goods(getGoodsName=${allGood.getGoodsName()},shopId=${allGood.getShopId()})}">
+                                        <i class="lar la-comment icon"></i>
+                                        <span class="text">购买</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="scroll-to-top">
+    <i class="fas fa-angle-up"></i>
+</div>
+
 <!--=====================================页码=================================================-->
-<div style="text-align: center;">
-    <a th:if="${page.hasPreviousPage}" th:href="@{/getAllGoods?pageNum=1}">首页</a>
-    <a th:if="${page.hasPreviousPage}" th:href="@{'/getAllGoods?pageNum='+${page.prePage}}">上一页</a>
-    <span th:each="num : ${page.navigatepageNums}">
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <div style="text-align: center;">
+        <a th:if="${page.hasPreviousPage}" th:href="@{/getAllGoods?pageNum=1}">首页</a>
+        <a th:if="${page.hasPreviousPage}" th:href="@{'/getAllGoods?pageNum='+${page.prePage}}">上一页</a>
+        <span th:each="num : ${page.navigatepageNums}">
         <!--如果当前访问的页码和下面的数字对应，就改变对应数字的样式-->
     <a th:if="${page.pageNum == num}" style="color: rgba(206,145,193,0.7)" th:href="@{'/getAllGoods?pageNum='+${num}}" th:text="'['+${num}+']'"></a>
     <a th:if="${page.pageNum != num}" th:href="@{'/getAllGoods?pageNum='+${num}}" th:text="${num}"></a>
     </span>
-    <a th:if="${page.hasNextPage}" th:href="@{'/getAllGoods?pageNum='+${page.nextPage}}">下一页</a>
-    <a th:if="${page.hasNextPage}" th:href="@{'/getAllGoods?pageNum='+${page.pages}}">尾页</a>
-</div>
+        <a th:if="${page.hasNextPage}" th:href="@{'/getAllGoods?pageNum='+${page.nextPage}}">下一页</a>
+        <a th:if="${page.hasNextPage}" th:href="@{'/getAllGoods?pageNum='+${page.pages}}">尾页</a>
+    </div>
 
-<footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2010–2021 前沿科技Artech All rights reserved</p>
+    <!--==============================================-->
+    <br>
+    <br>
+        <p class="mb-1">&copy; 2010–2021 前沿科技Artech All rights reserved</p>
     <ul class="list-inline">
         <li class="list-inline-item"><a href="javascript:void(0);">关于我们</a></li>
         <li class="list-inline-item"><a href="javascript:void(0);">联系我们</a></li>

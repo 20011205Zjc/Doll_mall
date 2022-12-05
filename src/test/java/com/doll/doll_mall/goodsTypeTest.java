@@ -17,4 +17,9 @@ public class goodsTypeTest {
     void testGoodsTYpe(){
         System.out.println(goodsTypeService.goodsTypes());
     }
+
+    @Test
+    void test2(){
+        System.out.println(goodsTypeService.getTypeById(1));
+    }
 }

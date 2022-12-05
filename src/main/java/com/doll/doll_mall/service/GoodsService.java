@@ -47,7 +47,7 @@ public class GoodsService {
     /*获取员工 的分页信息*/
     public PageInfo<Goods> getAllGoodsPage(Integer pageNum) {
         //开启分页功能
-        PageHelper.startPage(pageNum,10);
+        PageHelper.startPage(pageNum,12);
         //查询所有的员工信息
         List<Goods> list = goodsMapper.getAllGoods();
         //获取分页相关数据

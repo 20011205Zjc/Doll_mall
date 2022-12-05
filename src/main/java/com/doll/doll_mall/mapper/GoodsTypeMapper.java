@@ -13,4 +13,7 @@ import java.util.List;
 public interface GoodsTypeMapper {
     /*查询所有的类型*/
     List<GoodsType> getAllGoodsType();
+
+    /*根据类型的id查询*/
+    GoodsType getTypeById(Integer typeId);
 }

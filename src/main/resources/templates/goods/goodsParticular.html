@@ -11,10 +11,129 @@
     <script src="/static/js/goodsParticular.js"></script>
 
     <div th:replace="~{common/common::commonHeader}"></div>
+    <div th:insert="~{common/commonHead::#headerCommon}"></div>
+    <div th:insert="~{common/commonHead::#navCommon(active='sp')}"></div>
 </head>
-<body>
-<div th:replace="~{common/common::#commonNav}" class="col-12"></div>
+<style>
+    #b1{
+      background-color: rgba(241, 203, 206, 0.48) !important;
+    }
+    #d1{
+        background-color: rgba(241, 203, 206, 0.48) !important;
+    }
+</style>
+<body id="b1">
 
+<!--/////////////////////////-->
+<div class="author-aritcle-area-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+            </div>
+        </div>
+
+        <br>
+            <!--///////////////////////////////////////////////////////////////////-->
+            <div class="col-12" style="margin-top: 40px" >
+                <table>
+                    <tr th:each="goodsAndGoodsSize : ${goodsAndGoodsSize}">
+                        <td>
+                            <div class="container">
+                                <div class="bg-gray" style="background: white">
+                                    <div class="container px-4 py-5">
+                                        <div class="row align-items-lg-center g-5">
+                                            <div class="col-12 col-lg-6">
+                                                <!--          img-lab@2x.png-->
+                                                <img th:src="${goodsAndGoodsSize.getGoodsPhoto1()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 500px;width:500px;border-radius: 30px" >
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                                <!--                                    <h1 class="display-6 fw-bold mb-3" th:text="${goodsAndGoodsSize.getGoodsName()}"></h1>
+                                                                                    <p class="lead" th:text="${goodsAndGoodsSize.getGoodsDescribe2()}"></p>-->
+                                                <div class="d-grid d-md-flex justify-content-md-start">
+                                                    <form action="/goods" method="post">
+                                                        <div class="goods_detail_list fr">
+                                                            <h3 th:text="${goodsAndGoodsSize.getGoodsDescribe1()}">大兴大棚草莓</h3>
+                                                            <br>
+                                                            <div class="prize_bar" style="width: 470px;">
+                                                                <div class="show_prize fl">￥<em th:text="${goodsAndGoodsSize.getGoodsPrice()}" id="dj">16.80</em></div>
+                                                                <div class="show_unit fl">库存：<em th:text="${goodsAndGoodsSize.getGoodsSize().getGoodsS()}" id="kc">16.80</em></div>
+                                                            </div>
+
+                                                            <div class="goods_num clearfix">
+                                                                <div class="num_name fl">尺寸:</div>
+                                                                <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="margin-top: 10px">
+                                                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked onclick="S()">
+                                                                        <label class="btn btn-outline-primary" for="btnradio1">S</label>
+
+                                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="M()">
+                                                                        <label class="btn btn-outline-primary" for="btnradio2">M</label>
+
+                                                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="X()">
+                                                                        <label class="btn btn-outline-primary" for="btnradio3">X</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="goods_num clearfix">
+                                                                <div class="num_name fl">数量：</div>
+                                                                <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="margin-top: 10px">
+                                                                    <button type="button" class="btn btn-danger" id="bt1" onclick="bt11()">-</button>
+                                                                    <button type="button" class="btn btn-light disabled" id="bt3" value="1">1</button>
+                                                                    <button type="button" class="btn btn-success" id="bt2" onclick="btn22()">+</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="total">来自商店:<span th:text="${shopName}"></span></div>
+                                                            <div class="total">总价:<span id="zj" style="color: red ;margin-left: 5px" th:text="${goodsAndGoodsSize.getGoodsPrice()}"></span></div>
+
+                                                            <div class="operate_btn" id="div1" style="display: none">
+                                                                <button  type="button"  class="buy_btn" id="byu" onclick="bty()">立即购买</button>
+                                                                <button type="button" class="add_cart" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="cart()">加入购物车</button>
+                                                            </div>
+
+                                                            <!--                                                <button class="btn btn-primary" disabled >
+                                                                                                                <span class="spinner-grow spinner-grow-sm"></span>
+                                                                                                                Loading..
+                                                                                                            </button>-->
+                                                            <!--加载动画-->
+                                                            <div class="container mt-3" id="loading">
+                                                                <div class="spinner-border text-muted"></div>
+                                                                <div class="spinner-border text-primary"></div>
+                                                                <div class="spinner-border text-success"></div>
+                                                                <div class="spinner-border text-info"></div>
+                                                                <div class="spinner-border text-warning"></div>
+                                                                <div class="spinner-border text-danger"></div>
+                                                                <div class="spinner-border text-secondary"></div>
+                                                                <div class="spinner-border text-dark"></div>
+                                                                <div class="spinner-border text-light"></div>
+                                                            </div>
+
+                                                            <div class="d-grid gap-2">
+                                                                <div class="btn btn-outline-warning" id="div2" style="display: none">
+                                                                    该商品暂时无货
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <input type="hidden" th:value="${goodsAndGoodsSize.getGoodsName()}" id="goodsId" name="id">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--/////////////////////////////////////-->
+        </div>
+
+    </div>
+<!--</div>-->
+
+<!--<div th:replace="~{common/common::#commonNav}" class="col-12"></div>-->
 <!--侧边的悬浮窗制作-->
 <link rel="stylesheet" href="/static/css/ce.css">
 <div class="go-top">
@@ -22,99 +141,7 @@
 </div>
 <!--=============================-->
 
-<div class="col-12">
-    <table>
-        <tr th:each="goodsAndGoodsSize : ${goodsAndGoodsSize}">
-            <td>
-                <div class="container">
-                    <div class="bg-gray" style="background: white">
-                        <div class="container px-4 py-5">
-                            <div class="row align-items-lg-center g-5">
-                                <div class="col-12 col-lg-6">
-                                    <!--          img-lab@2x.png-->
-                                    <img th:src="${goodsAndGoodsSize.getGoodsPhoto1()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 500px" width="500px">
-                                </div>
-                                <div class="col-12 col-lg-6">
-<!--                                    <h1 class="display-6 fw-bold mb-3" th:text="${goodsAndGoodsSize.getGoodsName()}"></h1>
-                                    <p class="lead" th:text="${goodsAndGoodsSize.getGoodsDescribe2()}"></p>-->
-                                    <div class="d-grid d-md-flex justify-content-md-start">
-                                        <form action="/goods" method="post">
-                                            <div class="goods_detail_list fr">
-                                                <h3 th:text="${goodsAndGoodsSize.getGoodsDescribe1()}">大兴大棚草莓</h3>
-                                                <p th:text="${goodsAndGoodsSize.getGoodsDescribe2()}">草莓浆果柔软多汁，味美爽口，适合速冻保险贮藏，草莓速冻后，可以保持原有的色、香、味，既便于贮藏，又便于外销。</p>
-                                                <div class="prize_bar">
-                                                    <div class="show_prize fl">￥<em th:text="${goodsAndGoodsSize.getGoodsPrice()}" id="dj">16.80</em></div>
-                                                    <div class="show_unit fl">库存：<em th:text="${goodsAndGoodsSize.getGoodsSize().getGoodsS()}" id="kc">16.80</em></div>
-                                                </div>
 
-                                                <div class="goods_num clearfix">
-                                                    <div class="num_name fl">尺寸:</div>
-                                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="margin-top: 10px">
-                                                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked onclick="S()">
-                                                            <label class="btn btn-outline-primary" for="btnradio1">S</label>
-
-                                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="M()">
-                                                            <label class="btn btn-outline-primary" for="btnradio2">M</label>
-
-                                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="X()">
-                                                            <label class="btn btn-outline-primary" for="btnradio3">X</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="goods_num clearfix">
-                                                    <div class="num_name fl">数量：</div>
-                                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="margin-top: 10px">
-                                                        <button type="button" class="btn btn-danger" id="bt1" onclick="bt11()">-</button>
-                                                        <button type="button" class="btn btn-light disabled" id="bt3" value="1">1</button>
-                                                        <button type="button" class="btn btn-success" id="bt2" onclick="btn22()">+</button>
-                                                    </div>
-                                                </div>
-                                                <div class="total">来自商店:<span th:text="${shopName}"></span></div>
-                                                <div class="total">总价:<span id="zj" style="color: red ;margin-left: 5px" th:text="${goodsAndGoodsSize.getGoodsPrice()}"></span></div>
-
-                                                <div class="operate_btn" id="div1" style="display: none">
-                                                    <button  type="button"  class="buy_btn" id="byu" onclick="bty()">立即购买</button>
-                                                    <button type="button" class="add_cart" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="cart()">加入购物车</button>
-                                                </div>
-
-<!--                                                <button class="btn btn-primary" disabled >
-                                                    <span class="spinner-grow spinner-grow-sm"></span>
-                                                    Loading..
-                                                </button>-->
-                                                <!--加载动画-->
-                                                <div class="container mt-3" id="loading">
-                                                    <div class="spinner-border text-muted"></div>
-                                                    <div class="spinner-border text-primary"></div>
-                                                    <div class="spinner-border text-success"></div>
-                                                    <div class="spinner-border text-info"></div>
-                                                    <div class="spinner-border text-warning"></div>
-                                                    <div class="spinner-border text-danger"></div>
-                                                    <div class="spinner-border text-secondary"></div>
-                                                    <div class="spinner-border text-dark"></div>
-                                                    <div class="spinner-border text-light"></div>
-                                                </div>
-
-                                                <div class="d-grid gap-2">
-                                                <div class="btn btn-outline-warning" id="div2" style="display: none">
-                                                    该商品暂时无货
-                                                </div>
-                                                </div>
-
-                                            </div>
-                                            <input type="hidden" th:value="${goodsAndGoodsSize.getGoodsName()}" id="goodsId" name="id">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
 
 <!--弹出确认框-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -153,100 +180,162 @@
     </div>
 </div>
 
-<hr>
-<!--介绍-->
+<!--=================================================-->
+<section class="w3l-main-slider" id="home">
 
-<div class="bg-gray" style="background: white">
-    <div class="container px-4 py-5">
-        <div class="row align-items-lg-center g-5">
-            <div class="col-12 col-lg-6">
-                <!--          img-lab@2x.png-->
-                <img th:src="${goodsAndGoodsSize.getGoodsPhoto2()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 500px" width="500px">
+</section>
+<!-- /main-slider -->
+<!--/grids-->
+<section class="w3l-grids-3 py-5" id="about">
+    <div class="container py-md-5 py-3">
+        <div class="row bottom-ab-grids align-items-center">
+
+            <div class="col-lg-6 bottom-ab-left">
+                <h6 class="sub-titlehny"></h6>
+                <h3 class="hny-title" th:text="${goodsAndGoodsSize.getGoodsDescribe1()}">Caring for the growing needs of our community.</h3>
+                <div class="separatorhny"></div>
+                <p class="my-3" th:text="${goodsAndGoodsSize.getGoodsDescribe2()}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur hic odio voluptatem
+                    tenetur consequatur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                    Nulla mollis dapibus nunc, ut rhoncus
+                    turpis sodales quis. </p>
             </div>
-            <div class="col-12 col-lg-6">
-                <!--<h1 class="display-6 fw-bold mb-3" th:text="${goodsAndGoodsSize.getGoodsDescribe3()}">泰迪熊公仔</h1>-->
-                <p class="lead" th:text="${goodsAndGoodsSize.getGoodsDescribe3()}"></p>
+            <div class="col-lg-6 bottom-ab-right mt-lg-0 mt-5 pl-lg-4">
+                <img th:src="${goodsAndGoodsSize.getGoodsPhoto2()}" alt="" class="img-fluid" style="width: 640px;height: 426px">
             </div>
+
         </div>
     </div>
-</div>
+</section>
+<!-- /////////////////////////////////////////// -->
+<div class="w3l-cwp4-sec py-5">
+    <div class="container py-md-5 py-3">
+        <div class="cwp4-two row align-items-center">
+            <div class="cwp4-image col-lg-6 pr-lg-5">
+                <img th:src="${goodsAndGoodsSize.getGoodsPhoto3()}" class="img-fluid" alt="" style="width: 640px;height: 426px">
+            </div>
+            <div class="cwp4-text col-lg-6 mt-lg-0 mt-5">
+                <h6 class="sub-titlehny"></h6>
+                <h3 class="hny-title" th:text="${goodsAndGoodsSize.getGoodsDescribe4()}">
+                    Caring for our region’s most precious resource</h3>
+                <div class="separatorhny"></div>
+                <p th:text="${goodsAndGoodsSize.getGoodsDescribe5()}">Lorem ipsum dolor sit amet, consectetur adipisicingelit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua.
+                </p>
 
-<div class="bg-gray" style="background: white">
-    <div class="container px-4 py-5">
-        <div class="row align-items-lg-center g-5">
-            <div class="col-12 col-lg-6">
-                <!--          img-lab@2x.png-->
-                <img th:src="${goodsAndGoodsSize.getGoodsPhoto3()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 500px" width="500px">
             </div>
-            <div class="col-12 col-lg-6">
-<!--                <h1 class="display-6 fw-bold mb-3" th:text="${goodsAndGoodsSize.getGoodsDescribe3()}">泰迪熊公仔</h1>-->
-                <p class="lead" th:text="${goodsAndGoodsSize.getGoodsDescribe4()}"></p>
-            </div>
+
         </div>
     </div>
-</div>
 
-<div class="bg-gray" style="background: white">
-    <div class="container px-4 py-5">
-        <div class="row align-items-lg-center g-5">
-            <div class="col-12 col-lg-6">
-                <!--          img-lab@2x.png-->
-                <img th:src="${goodsAndGoodsSize.getGoodsPhoto4()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 500px" width="500px">
-            </div>
-            <div class="col-12 col-lg-6">
-                <h1 class="display-6 fw-bold mb-3" th:text="${goodsAndGoodsSize.getGoodsDescribe3()}">泰迪熊公仔</h1>
-                <p class="lead" th:text="${goodsAndGoodsSize.getGoodsDescribe4()}"></p>
-            </div>
-        </div>
-    </div>
 </div>
-
-<div class="bg-gray" style="background: white">
-    <div class="container px-4 py-5">
-        <div class="row align-items-lg-center g-5">
-            <div class="col-12 col-lg-6">
-                <!--          img-lab@2x.png-->
-                <img th:src="${goodsAndGoodsSize.getGoodsPhoto5()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 500px" width="500px">
-            </div>
-            <div class="col-12 col-lg-6">
-                <h1 class="display-6 fw-bold mb-3" th:text="${goodsAndGoodsSize.getGoodsDescribe3()}">泰迪熊公仔</h1>
-                <p class="lead" th:text="${goodsAndGoodsSize.getGoodsDescribe4()}"></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--==================================================================================-->
+<!--==================================-->
 <div class="container px-4">
     <h2 class="pb-2 border-bottom">本店热销</h2>
-    <div class="row g-5 py-5">
-        <!--============================================================-->
-        <div class="col-md-3 d-flex flex-md-column" th:each="goods : ${goods} ">
-            <div class="feature-icon  bg-gradient flex-shrink-0 me-3">
-                <img th:src="${goods.getGoodsPhoto1()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 200px;width: 200px;">
-            </div>
-            <div>
-                <em th:text="${goods.getGoodsDescribe1()}"></em>
-                价格：<p th:text="${goods.getGoodsPrice()}"></p>
-                销量：<p th:text="${goods.getSalesVolume()}"></p>
-                <form action="/goods" method="post">
-                    <input type="hidden" th:value="${userId}" name="userId" id="userId">
-                    <input type="hidden" th:value="${goods.getGoodsName()}" name="getGoodsName">
-                    <input type="hidden" th:value="${goods.getShopId()}" name="shopId">
-                    <button type="submit" class="btn btn-warning" >购买<i class="bi bi-bag-heart"></i></button>
-                </form>
+    <hr>
+    <div class="row">
+        <!--///////////////////////////////////////////////////////////////////-->
+        <div class="col-md-6 col-lg-4" th:each="allGood:${goods}">
+            <div class="single-blog-list-nature">
+                <div class="img-box">
+                    <img th:src="${allGood.getGoodsPhoto1()}" alt="image" >
+                </div>
+                <div class="content">
+                    <h5 class="title">
+                        <span style="color: black;font-size: 15px;" th:text="${allGood.getGoodsDescribe1()}">In every walk in with nature one receives far more than he seeks.</span>
+                    </h5>
+                    <div class="post-meta">
+                        <ul class="list">
+                            <li class="list-item">
+                                <a href="#">
+                                    <i class="las la-tag icon"></i>
+                                    <span class="text" th:text="${allGood.getGoodsPrice()}"></span>￥
+                                </a>
+                            </li>
+                            <li class="list-item">
+                                <a th:href="@{/goods(getGoodsName=${allGood.getGoodsName()},shopId=${allGood.getShopId()})}">
+                                    <i class="lar la-comment icon"></i>
+                                    <span class="text">购买</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
+<!--=================================-->
+<!--=====================-->
+<section class="w3l-ab-features py-5">
+    <div class="container py-md-5 py-3">
+        <div class="row features-w3pvt-main" id="features">
+            <div class="col-lg-4 col-md-6 feature-gird">
+                <div class="row features-hny-inner-gd">
+                    <div class="col-md-2 col-2 featured_grid_left">
+                        <div class="icon-hnynumber">
+                            <span class="hnynumber">01</span>
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-10 featured_grid_right_info">
+                        <h4><a class="link-hny" href="#url">Qualified Doctors</a></h4>
+                        <p>Lorem ipsum dolor sit amet elit consec tetur adipisi elit.,Vestibulum ante ipsum primis in faucibus
+                            orci luctus et ultrices posuere cubilia Curae rem!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 feature-gird mt-md-0 mt-4">
+                <div class="row features-hny-inner-gd">
+                    <div class="col-md-2 col-2 featured_grid_left">
+                        <div class="icon-hnynumber">
+                            <span class="hnynumber">02</span>
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-10 featured_grid_right_info">
+                        <h4><a class="link-hny" href="#url">24 Hour Service</a></h4>
+                        <p>Lorem ipsum dolor sit amet elit consec tetur adipisi elit.,Vestibulum ante ipsum primis in faucibus
+                            orci luctus et ultrices posuere cubilia Curae rem!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 feature-gird mt-lg-0 mt-md-5 mt-4">
+                <div class="row features-hny-inner-gd">
+                    <div class="col-md-2 col-2 featured_grid_left">
+                        <div class="icon-hnynumber">
+                            <span class="hnynumber">03</span>
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-10 featured_grid_right_info">
+                        <h4><a class="link-hny" href="#url">
+                            We Are Here For You</a></h4>
+                        <p>Lorem ipsum dolor sit amet elit consec tetur adipisi elit.,Vestibulum ante ipsum primis in faucibus
+                            orci luctus et ultrices posuere cubilia Curae rem!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--==================================================================================-->
 <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2010–2021 前沿科技Artech All rights reserved</p>
+    <p class="mb-1">&copy; 2008–2023 前沿科技Artech All rights reserved</p>
     <ul class="list-inline">
         <li class="list-inline-item"><a href="javascript:void(0);">关于我们</a></li>
         <li class="list-inline-item"><a href="javascript:void(0);">联系我们</a></li>
         <li class="list-inline-item"><a href="javascript:void(0);">隐私协议</a></li>
     </ul>
 </footer>
+
+<!---->
+<link rel="stylesheet" href="/static/css-2/style-starter.css">
+<script src="/static/js-2/jquery-3.3.1.min.js"></script>
+
+<script src="/static/js-2/theme-change.js"></script>
+
+<script src="/static/js-2/lightbox-plus-jquery.min.js"></script>
+<!-- libhtbox -->
+<script src="/static/js-2/owl.carousel.js"></script>
+<!-- script for banner slider-->
+<script src="/static/js-2/bootstrap.min.js"></script>
+<!---->
 </body>
 </html>

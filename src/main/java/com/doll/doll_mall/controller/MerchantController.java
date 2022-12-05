@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -104,21 +106,20 @@ public class MerchantController {
     public String tj(int userId,Model model,int shopId){
         model.addAttribute("userId",userId);
         model.addAttribute("shopId",shopId);
+        System.out.println(shopId);
         model.addAttribute("goodsName", new Date().getTime());
         model.addAttribute("type",goodsTypeService.goodsTypes());
-        for (GoodsType goodsType : goodsTypeService.goodsTypes()) {
-            goodsType.getTypeId();
-            goodsType.getTypeName();
-        }
         return "shop/insertGoods";
     }
 
     /*添加商品*/
     @RequestMapping("/insertGoods")
-    public String insertGoods(Goods goods, goodsSize goodsSize,int userId){
+    public String insertGoods(Goods goods, goodsSize goodsSize, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Object userId1 = session.getAttribute("userId");
         goodsService.insertGoods(goods);
         goodsSizeService.insertSize(goodsSize);
-        return "redirect:spController?userId="+userId;
+        return "redirect:spController?userId="+userId1;
     }
 
     /*ajax实现商品的名称不可重复*/

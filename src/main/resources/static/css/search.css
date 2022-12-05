@@ -8,7 +8,7 @@
 }
 .lx p:hover{
     cursor: pointer;
-    border: 1px solid palevioletred;
-    border-radius: 20px;
-    background-color: lightpink;
+    border: 1px solid #e55d44;
+    color: white;
+    background-color: #e55d44;
 }

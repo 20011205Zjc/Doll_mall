@@ -7,4 +7,8 @@
     <select id="getAllGoodsType" resultType="com.doll.doll_mall.pojo.GoodsType">
         select * from goodstype
     </select>
+    <!--GoodsType getTypeById(Integer typeId);-->
+    <select id="getTypeById" resultType="com.doll.doll_mall.pojo.GoodsType">
+        select * from goodstype where typeId = #{typeId}
+    </select>
 </mapper>

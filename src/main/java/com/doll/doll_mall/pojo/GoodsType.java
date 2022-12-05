@@ -16,4 +16,5 @@ import lombok.ToString;
 public class GoodsType {
     private Integer typeId;
     private String typeName;
+    private String typePhoto;
 }

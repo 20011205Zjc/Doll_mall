@@ -39,6 +39,14 @@ public class goodsSizeTest {
 
     @Test
     void testSize(){
-        goodsSizeService.updateSize(new goodsSize(1,0,999,250,null));
+        goodsSizeService.updateSize(new goodsSize(70,0,999,250,"1669875276189"));
+    }
+    @Test
+    void test3(){
+        System.out.println(goodsSizeService.getGoodsSizeById(67));
+    }
+    @Test
+    void test4(){
+        System.out.println(goodsSizeService.getGoodsSizeByGoodsName("1669875100586"));
     }
 }

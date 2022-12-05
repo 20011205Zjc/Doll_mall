@@ -24,7 +24,17 @@
             goodsName = #{goodsName}
         </if>
     </set>
-        where goodsSizeId=#{goodsSizeId}
-
+        where goodsSizeId = #{goodsSizeId}
     </update>
+
+    <!--goodsSize getGoodsSizeById(Integer id);-->
+    <select id="getGoodsSizeById" resultType="com.doll.doll_mall.pojo.goodsSize">
+        select *
+        from goodssize where goodsSizeId = #{goodsSizeId};
+    </select>
+
+    <!--goodsSize getGoodsSizeByGoodsName(String goodsName);-->
+    <select id="getGoodsSizeByGoodsName" resultType="com.doll.doll_mall.pojo.goodsSize">
+        select * from goodssize where goodsName = #{goodsName}
+    </select>
 </mapper>

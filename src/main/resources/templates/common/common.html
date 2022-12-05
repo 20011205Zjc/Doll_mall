@@ -25,7 +25,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-light navbar-fixed-top " style="height: 40px">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
-                <img src="/static/img/favicon.ico" class="rounded-circle" style="height:2rem;">
+                <img src="/static/img/log.png" class="rounded-circle" style="height:2rem;">
                 玩偶商城
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
                         <a  th:href="@{/getAllGoods?pageNum=1}" th:class="${active=='sp'?'nav-link text-primary active':'nav-link'}">商店</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link">技术支持</a>
+                        <a th:class="${active=='cart'?'nav-link text-primary active':'nav-link'}" th:href="@{/goCart}">我的购物车</a>
                     </li>
                 </ul>
                 <form class="d-flex" >

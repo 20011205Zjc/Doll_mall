@@ -14,4 +14,9 @@ public interface GoodsSizeMapper {
     void insertSize(goodsSize goodsSize);
     /*修改商品的尺寸*/
     void updateSize(goodsSize goodsSize);
+    /*根据id查询对应尺寸的数量*/
+    goodsSize getGoodsSizeById(Integer id);
+    /*根据goodsName查询对应的库存*/
+    goodsSize getGoodsSizeByGoodsName(String goodsName);
+
 }

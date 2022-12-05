@@ -1,9 +1,12 @@
 package com.doll.doll_mall.controller;
 
-import com.doll.doll_mall.DollMallApplication;
 import com.doll.doll_mall.pojo.Goods;
+import com.doll.doll_mall.pojo.GoodsType;
+import com.doll.doll_mall.pojo.TypePhoto;
 import com.doll.doll_mall.pojo.User;
 import com.doll.doll_mall.service.GoodsService;
+import com.doll.doll_mall.service.GoodsTypeService;
+import com.doll.doll_mall.service.TypePhotoService;
 import com.doll.doll_mall.service.UserService;
 import com.doll.doll_mall.utils.MD5Util;
 import com.doll.doll_mall.utils.VerCodeGenerateUtil;
@@ -39,6 +42,12 @@ public class loginController {
     @Autowired
     JavaMailSenderImpl mailSender;
 
+    @Autowired
+    private GoodsTypeService goodsTypeService;
+
+    @Autowired
+    private TypePhotoService typePhotoService;
+
     /*用户打开网页看到的*/
     @RequestMapping("/")
     public String test(Model model, HttpServletRequest request){
@@ -60,13 +69,21 @@ public class loginController {
         List<Goods> allGoods = goodsService.getAllGoods();
         model.addAttribute("allGoods",allGoods);
 
-        /*工具推荐来显示*/
+        /*根据推荐来显示*/
         List<Goods> goodsByRecommend = goodsService.getGoodsByRecommend();
         model.addAttribute("goodsByRecommend",goodsByRecommend);
 
         List<Goods> goodsBySalesVolume = goodsService.getGoodsBySalesVolume();
         model.addAttribute("goodsBySalesVolume",goodsBySalesVolume);
-
+        /*查询所有的类别*/
+        List<GoodsType> goodsTypes = goodsTypeService.goodsTypes();
+        model.addAttribute("goodsTypes",goodsTypes);
+/*        for (GoodsType goodsType : goodsTypes) {
+            goodsType.getTypePhoto()
+        }*/
+        /*查询类别的图片*/
+        List<TypePhoto> typePhotos = typePhotoService.typePhotos();
+        model.addAttribute("typePhotos",typePhotos);
         return "index";
     }
 
@@ -131,7 +148,7 @@ public class loginController {
     /*到注册页*/
     @RequestMapping("/register")
     public String register(){
-        System.out.println("执行力");
+        System.out.println("执行了");
         return "user/register";
     }
     /*发送邮箱验证码*/

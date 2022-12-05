@@ -21,4 +21,13 @@ public class GoodsSizeService {
     public void updateSize(goodsSize goodsSize){
         goodsSizeMapper.updateSize(goodsSize);
     }
+    /*根据id查询对应的库存*/
+    public goodsSize getGoodsSizeById(Integer id){
+        return goodsSizeMapper.getGoodsSizeById(id);
+    }
+
+    /*根据goodsName查询对应的商品*/
+    public goodsSize getGoodsSizeByGoodsName(String goodsName){
+        return goodsSizeMapper.getGoodsSizeByGoodsName(goodsName);
+    }
 }

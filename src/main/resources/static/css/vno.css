@@ -43,7 +43,7 @@ body {
 }
 
 .ih-item.circle.effect .info h2 {
-  color: #fff;    
+  color: #fff;
   position: relative;
   font-size: 18px;
   margin: 0 auto;
@@ -179,17 +179,17 @@ body {
 }
 @media all and (max-width: 780px) {
   .ih-item.circle .img {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      /*margin-top: 20px;*/
-      border-radius: 50%;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    /*margin-top: 20px;*/
+    border-radius: 50%;
   }
   .ih-item.circle {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
   }
   .ih-item.circle .info .info-back h2{
     font-size: 0.9em;
@@ -199,15 +199,15 @@ body {
 .profilepic {
   text-align: center;
   display: block;
-/*  -webkit-box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0px 2px 20px 3px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0px 2px 20px 3px rgba(0, 0, 0, 0.25);*/
+  /*  -webkit-box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0px 2px 20px 3px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0px 2px 20px 3px rgba(0, 0, 0, 0.25);*/
   border-radius: 300px;
   width: 128px;
   height: 128px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-/*  background: #88acdb;*/
+  /*  background: #88acdb;*/
   -webkit-transition: all 0.2s ease-in;
   display: -webkit-box;
   -webkit-box-orient: horizontal;
@@ -7321,7 +7321,7 @@ body {
 
 .article-entry .highlight figcaption {
   font-size: 0.85em;
-  color: #999;
+  color: #ddd;
   line-height: 1em;
   margin-bottom: 1em;
 }
@@ -7377,7 +7377,7 @@ body {
 
 .article-entry .gist .gist-file .gist-meta {
   background: #2d2d2d;
-  color: #999;
+  color: #ddd;
   font: 0.85em "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-shadow: 0 0;
   padding: 0;
@@ -7396,7 +7396,7 @@ body {
 
 pre .comment,
 pre .title {
-  color: #999;
+  color: #ddd;
 }
 
 pre .variable,
@@ -7843,14 +7843,14 @@ tbody td {
 .excerpt {
   margin: 0;
   font-size: 0.9em;
-  color: #999;
+  color: #ddd;
 }
 
 .intro {
   font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-size: 1.2em;
   font-weight: lighter;
-  color: #999;
+  color: #ddd;
 }
 
 .block-heading {
@@ -7989,13 +7989,13 @@ hr {
 }
 
 .panel-cover {
+  background: white !important;
   display: block;
   position: fixed;
   z-index: 900;
   width: 100%;
   max-width: none;
   height: 100%;
-  background: center center no-repeat #666;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -8135,8 +8135,8 @@ hr {
 }
 
 .btn-tertiary {
-  border-color: #999;
-  color: #999;
+  border-color: #ddd;
+  color: #ddd;
 }
 
 .btn-tertiary:hover {
@@ -8230,7 +8230,7 @@ nav {
 .pagination__page-number {
   margin: 0;
   font-size: 0.8em;
-  color: #999;
+  color: #ddd;
 }
 
 .pagination__newer {

@@ -62,12 +62,12 @@
 
     <!--List<Goods> getGoodsBySalesVolume(Integer salesVolume);-->
     <select id="getGoodsBySalesVolume" resultType="com.doll.doll_mall.pojo.Goods">
-        SELECT * FROM goods  ORDER BY salesVolume DESC LIMIT 0,4
+        SELECT * FROM goods  ORDER BY recommend ASC LIMIT 0,5
     </select>
 
     <!--List<Goods> getGoodsByRecommend();-->
     <select id="getGoodsByRecommend" resultType="com.doll.doll_mall.pojo.Goods">
-        SELECT * FROM goods  ORDER BY recommend DESC LIMIT 0,4
+        SELECT * FROM goods  ORDER BY goodsName DESC LIMIT 0,4
     </select>
 
     <!--List<Goods> getGoodsByLike(String goodsDescribe1);-->
@@ -138,7 +138,7 @@
 
     <!--List<Goods> goods(Integer shopId);-->
     <select id="goods" resultType="com.doll.doll_mall.pojo.Goods">
-        select * from goods where shopId = #{shopId} ORDER BY salesVolume desc limit 0,4
+        select * from goods where shopId = #{shopId} ORDER BY salesVolume desc limit 0,3
     </select>
 
     <!--List<Goods> getGoodsByTypeId(Integer typeId);-->

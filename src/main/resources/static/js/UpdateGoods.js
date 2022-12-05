@@ -236,7 +236,8 @@ function sub(){
         myFrom.submit();
         alert("修改成功")
     }
-
+    myFrom.submit();
+    alert("修改成功")
 
 /*    }else {
         alert(flag)

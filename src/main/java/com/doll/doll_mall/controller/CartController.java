@@ -34,14 +34,14 @@ public class CartController {
 
     @RequestMapping("/addCart")
     public String addCart(Cart cart,Integer shopId,String goodsName,HttpServletRequest request){
-        System.out.println("商店id："+shopId);
+//        System.out.println("商店id："+shopId);
         HttpSession session = request.getSession();
-        System.out.println("用户的id："+session.getAttribute("userId"));
+//        System.out.println("用户的id："+session.getAttribute("userId"));
         cart.setUserId((Integer) session.getAttribute("userId"));
 
         /*如果加入购物车的商品id和尺寸一样则只改变数量和价格*/
         List<Cart> carts = cartService.carts((Integer) session.getAttribute("userId"));
-        System.out.println("hhhhhhh"+goodsName);
+//        System.out.println("hhhhhhh"+goodsName);
         for (Cart cart1 : carts) {
             Goods goodsAndGoodsSize = goodsService.getGoodsAndGoodsSize(goodsName);
             if (Objects.equals(cart1.getGoodsId(), cart.getGoodsId()) && Objects.equals(cart1.getGoodsSize(), cart.getGoodsSize())){

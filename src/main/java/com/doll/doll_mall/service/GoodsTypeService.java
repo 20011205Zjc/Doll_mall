@@ -19,4 +19,8 @@ public class GoodsTypeService {
     public List<GoodsType> goodsTypes(){
         return goodsTypeMapper.getAllGoodsType();
     }
+
+    public GoodsType getTypeById(Integer typeId){
+        return goodsTypeMapper.getTypeById(typeId);
+    }
 }

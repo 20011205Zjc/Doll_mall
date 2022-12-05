@@ -89,9 +89,10 @@ public class GoodsController {
     /*将查询到的商品返回*/
     @RequestMapping("/getGoodsLikeByGoodsDescribe1")
     public String  getGoodsLikeByGoodsDescribe1(String goodsDescribe1,Model model,Integer pageNum){
-
+        List<GoodsType> goodsTypes = goodsTypeService.goodsTypes();
+        model.addAttribute("goodsTypes",goodsTypes);
         PageInfo<Goods> page = goodsService.getGoodsByLikePage(pageNum, goodsDescribe1);
-        model.addAttribute("search","关于:\""+goodsDescribe1+"\"的商品");
+        model.addAttribute("search",goodsDescribe1);
         model.addAttribute("page",page);
         model.addAttribute("goodsDescribe1",goodsDescribe1);
         return "goods/SearchGoods";
@@ -102,37 +103,79 @@ public class GoodsController {
     public String UpdateGoods(Goods goods,Model model,Integer userId,Integer goodsId,String goodsName){
         List<Goods> goodsById = goodsService.getGoodsById(goodsId);
         Goods goodsAndGoodsSize = goodsService.getGoodsAndGoodsSize(goodsName);
+        List<GoodsType> goodsTypes = goodsTypeService.goodsTypes();
+        model.addAttribute("type",goodsTypes);
         model.addAttribute("M",goodsAndGoodsSize.getGoodsSize().getGoodsM());
         model.addAttribute("S",goodsAndGoodsSize.getGoodsSize().getGoodsS());
         model.addAttribute("X",goodsAndGoodsSize.getGoodsSize().getGoodsX());
         model.addAttribute("sizeId",goodsAndGoodsSize.getGoodsSize().getGoodsSizeId());
-//        model.addAttribute("goods",goods);
+        System.out.println("尺寸的ID："+goodsAndGoodsSize.getGoodsSize().getGoodsSizeId());
         model.addAttribute("goodsId",goodsId);
         model.addAttribute("goods",goodsById);
         model.addAttribute("userId",userId);
 //        model.addAttribute("sizeId",goods.getGoodsSize().getGoodsSizeId());
-        model.addAttribute("goodsName",UUID.randomUUID());
+//        model.addAttribute("goodsName",UUID.randomUUID());
         return "goods/updateGoods";
     }
 
     /*修改商品*/
     @RequestMapping("/upGoods")
-    public String UpGoods(Goods goods, goodsSize goodsSize, HttpServletRequest request){
+    public String UpGoods(Goods goods, goodsSize goodsSize, HttpServletRequest request,String goodsName,Integer goodsSizeId){
+        System.out.println(goodsName);
         HttpSession session = request.getSession();
         Object userId = session.getAttribute("userId");
         goodsService.UpdateGoods(goods);
+        goodsSize.setGoodsName(goodsName);
         goodsSizeService.updateSize(goodsSize);
+        System.out.println("修改后的尺寸:"+goodsSize);
         return "redirect:/spController?userId="+userId;
     }
 
     /*根据商品类型查询商品*/
     @RequestMapping("/type")
     public String getGoodsByTypeId(Integer typeId,Model model){
+        GoodsType typeById = goodsTypeService.getTypeById(typeId);
         List<Goods> goodsByShopId = goodsService.getGoodsByShopId(typeId);
         List<GoodsType> goodsTypes = goodsTypeService.goodsTypes();
         model.addAttribute("goodsTypes",goodsTypes);
         model.addAttribute("type",goodsByShopId);
+        model.addAttribute("type2",typeById.getTypeName());
         return "/goods/goodsType";
+    }
+
+    /*发送订单请求*/
+    @RequestMapping("/checkOut")
+    public void checkOut(Integer goodsId,String size,Integer count){
+        /*根据商品的ID查询商品的name*/
+        List<Goods> goodsById = goodsService.getGoodsById(goodsId);
+
+        for (Goods goods : goodsById) {
+            goodsSize goodsSizeByGoodsName = goodsSizeService.getGoodsSizeByGoodsName(goods.getGoodsName());
+            Integer goodsSizeId = goodsSizeByGoodsName.getGoodsSizeId();
+
+            /*提交订单后在增加商品的销量*/
+            goodsSize goodsSizeById = goodsSizeService.getGoodsSizeById(goodsSizeId);
+            goodsService.UpdateGoods(new Goods(goodsId,null,null,null,null,null,null,goods.getGoodsPrice(),null,null,null,null,null,null,goods.getSalesVolume()+count,goods.getTypeId(),goods.getShopId(),null));
+            System.out.println("要修改的尺寸的ID："+goodsSizeId);
+            System.out.println("要修改的商品的名字："+goods.getGoodsName());
+            if (Objects.equals(size, "S")){
+                /*根据商品ID修改商品的库存数量*/
+                goodsSizeService.updateSize(new goodsSize(goodsSizeId,goodsSizeById.getGoodsS()-count,null,null,null));
+            }
+            /**/
+            if (Objects.equals(size, "M")){
+                /*根据商品ID修改商品的库存数量*/
+                goodsSizeService.updateSize(new goodsSize(goodsSizeId,null,goodsSizeById.getGoodsM()-count,null,null));
+            }
+            /**/
+            if (Objects.equals(size, "X")){
+                /*根据商品ID修改商品的库存数量*/
+                goodsSizeService.updateSize(new goodsSize(goodsSizeId,null,null,goodsSizeById.getGoodsX()-count,null));
+            }
+
+        }
+
+        /*结算完成后删除购物车中的信息*/
     }
 
 }
