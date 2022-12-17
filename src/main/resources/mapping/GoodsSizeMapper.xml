@@ -24,7 +24,7 @@
             goodsName = #{goodsName}
         </if>
     </set>
-        where goodsSizeId = #{goodsSizeId}
+        where goodsSizeId = #{goodsSizeId};
     </update>
 
     <!--goodsSize getGoodsSizeById(Integer id);-->

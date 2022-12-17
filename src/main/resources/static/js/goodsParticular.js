@@ -3,7 +3,8 @@ var size;
 window.onload = function (){
     document.getElementById("div1").style.display = "none"
     document.getElementById("div2").style.display = "none"
-    setTimeout(function() {yc()}, 1500);  //2秒后将会调用执行remind()函数
+    // setTimeout(function() {yc()}, 1500);  //2秒后将会调用执行remind()函数
+    yc();
 
    zj = document.getElementById("zj").innerHTML;//初始值
     zj = Number(zj)

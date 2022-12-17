@@ -47,8 +47,7 @@
                                                 <img th:src="${goodsAndGoodsSize.getGoodsPhoto1()}" class="img-fluid w-md-50 w-lg-100 d-md-block mx-md-auto" style="height: 500px;width:500px;border-radius: 30px" >
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <!--                                    <h1 class="display-6 fw-bold mb-3" th:text="${goodsAndGoodsSize.getGoodsName()}"></h1>
-                                                                                    <p class="lead" th:text="${goodsAndGoodsSize.getGoodsDescribe2()}"></p>-->
+
                                                 <div class="d-grid d-md-flex justify-content-md-start">
                                                     <form action="/goods" method="post">
                                                         <div class="goods_detail_list fr">
@@ -172,7 +171,7 @@
                     <div class="modal-footer">
                         <span><em id="error" style="color: red"></em></span>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                        <input type="submit" value="确认" class="btn btn-danger">
+                        <button type="submit" value="确认" class="btn btn-danger">确认</button>
                     </div>
                 </form>
             </div>
@@ -192,7 +191,7 @@
 
             <div class="col-lg-6 bottom-ab-left">
                 <h6 class="sub-titlehny"></h6>
-                <h3 class="hny-title" th:text="${goodsAndGoodsSize.getGoodsDescribe1()}">Caring for the growing needs of our community.</h3>
+                <p class="my-3" th:text="${goodsAndGoodsSize.getGoodsDescribe1()}">Caring for the growing needs of our community.</P>
                 <div class="separatorhny"></div>
                 <p class="my-3" th:text="${goodsAndGoodsSize.getGoodsDescribe2()}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur hic odio voluptatem
                     tenetur consequatur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
@@ -215,8 +214,8 @@
             </div>
             <div class="cwp4-text col-lg-6 mt-lg-0 mt-5">
                 <h6 class="sub-titlehny"></h6>
-                <h3 class="hny-title" th:text="${goodsAndGoodsSize.getGoodsDescribe4()}">
-                    Caring for our region’s most precious resource</h3>
+                <P class="font-weight-normal" th:text="${goodsAndGoodsSize.getGoodsDescribe4()}">
+                    Caring for our region’s most precious resource</P>
                 <div class="separatorhny"></div>
                 <p th:text="${goodsAndGoodsSize.getGoodsDescribe5()}">Lorem ipsum dolor sit amet, consectetur adipisicingelit, sed do eiusmod tempor incididunt ut labore et
                     dolore magna aliqua.
@@ -277,9 +276,8 @@
                         </div>
                     </div>
                     <div class="col-md-10 col-10 featured_grid_right_info">
-                        <h4><a class="link-hny" href="#url">Qualified Doctors</a></h4>
-                        <p>Lorem ipsum dolor sit amet elit consec tetur adipisi elit.,Vestibulum ante ipsum primis in faucibus
-                            orci luctus et ultrices posuere cubilia Curae rem!</p>
+                        <h4><a class="link-hny" href="#url">划线价格</a></h4>
+                        <p>商品的专柜价、吊牌价、正品零售价、厂商指导价或该商品的曾经展示过的销售价等，并非原价，仅供参考。</p>
                     </div>
                 </div>
             </div>
@@ -291,9 +289,8 @@
                         </div>
                     </div>
                     <div class="col-md-10 col-10 featured_grid_right_info">
-                        <h4><a class="link-hny" href="#url">24 Hour Service</a></h4>
-                        <p>Lorem ipsum dolor sit amet elit consec tetur adipisi elit.,Vestibulum ante ipsum primis in faucibus
-                            orci luctus et ultrices posuere cubilia Curae rem!</p>
+                        <h4><a class="link-hny" href="#url">未划线价格</a></h4>
+                        <p>商品的实时标价，不因表述的差异改变性质。具体成交价格根据商品参加活动，或会员使用优惠券、积分等发生变化，最终以订单结算页价格为准。</p>
                     </div>
                 </div>
             </div>
@@ -306,9 +303,9 @@
                     </div>
                     <div class="col-md-10 col-10 featured_grid_right_info">
                         <h4><a class="link-hny" href="#url">
-                            We Are Here For You</a></h4>
-                        <p>Lorem ipsum dolor sit amet elit consec tetur adipisi elit.,Vestibulum ante ipsum primis in faucibus
-                            orci luctus et ultrices posuere cubilia Curae rem!</p>
+                            商家详情页</a></h4>
+                        <p>商家详情页(含主图)以图片或文字形式标注的一口价、促销价、优惠价等价格可能是在使用优惠券、满减或特定优惠活动和商品参加活动，
+                            或会员使用优惠券、积分等发生变化，最终以订单结算页价格为准。</p>
                     </div>
                 </div>
             </div>

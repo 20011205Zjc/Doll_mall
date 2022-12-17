@@ -52,22 +52,18 @@ public class CartController {
                         count = goodsM;
                     }
                 }
-
                 if (Objects.equals(cart1.getGoodsSize(), "S")){
                     Integer goodsS = goodsAndGoodsSize.getGoodsSize().getGoodsS();
                     if (count >= goodsS){
                         count = goodsS;
                     }
                 }
-
                 if (Objects.equals(cart1.getGoodsSize(), "X")){
                     Integer goodsX = goodsAndGoodsSize.getGoodsSize().getGoodsX();
                     if (count >= goodsX){
                         count = goodsX;
                     }
                 }
-
-
                 double countPrice = cart1.getTotalPrice()+cart.getTotalPrice();
                 cartService.updateCart(new Cart(cart1.getCartId(),null,null,null,count,countPrice,null,null));
                 return "redirect:/goods?getGoodsName="+goodsName+"&shopId="+shopId;
@@ -129,17 +125,13 @@ public class CartController {
         }catch (Exception e){
             System.out.println("没有code");
         }
-
         List<Middle> middles = middleService.middles();
         ArrayList<Cart> carts = new ArrayList<>();
         for (Middle middle : middles) {
             Integer cartId = middle.getCartId();
-            System.out.println("购物车的id："+cartId);
             carts.add(cartService.getCartByCartId(cartId));
-            System.out.println("中间表的："+carts);
         }
         model.addAttribute("carts",carts);
-        System.out.println("自定义的list集合"+carts);
         return "user/checkout";
 
     }

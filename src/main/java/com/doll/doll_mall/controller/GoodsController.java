@@ -4,10 +4,7 @@ import com.doll.doll_mall.pojo.Goods;
 import com.doll.doll_mall.pojo.GoodsType;
 import com.doll.doll_mall.pojo.Shop;
 import com.doll.doll_mall.pojo.goodsSize;
-import com.doll.doll_mall.service.GoodsService;
-import com.doll.doll_mall.service.GoodsSizeService;
-import com.doll.doll_mall.service.GoodsTypeService;
-import com.doll.doll_mall.service.ShopService;
+import com.doll.doll_mall.service.*;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +32,9 @@ public class GoodsController {
     private GoodsSizeService goodsSizeService;
     @Autowired
     private GoodsTypeService goodsTypeService;
+
+    @Autowired
+    private CartService cartService;
 
     /*返回所有的商品信息*/
 
@@ -145,19 +145,18 @@ public class GoodsController {
 
     /*发送订单请求*/
     @RequestMapping("/checkOut")
-    public void checkOut(Integer goodsId,String size,Integer count){
+    public void checkOut(Integer goodsId,String size,Integer count,Integer cartId){
         /*根据商品的ID查询商品的name*/
+
         List<Goods> goodsById = goodsService.getGoodsById(goodsId);
 
         for (Goods goods : goodsById) {
             goodsSize goodsSizeByGoodsName = goodsSizeService.getGoodsSizeByGoodsName(goods.getGoodsName());
             Integer goodsSizeId = goodsSizeByGoodsName.getGoodsSizeId();
-
+            System.out.println("商品的尺寸ID2233："+goodsSizeId);
             /*提交订单后在增加商品的销量*/
             goodsSize goodsSizeById = goodsSizeService.getGoodsSizeById(goodsSizeId);
             goodsService.UpdateGoods(new Goods(goodsId,null,null,null,null,null,null,goods.getGoodsPrice(),null,null,null,null,null,null,goods.getSalesVolume()+count,goods.getTypeId(),goods.getShopId(),null));
-            System.out.println("要修改的尺寸的ID："+goodsSizeId);
-            System.out.println("要修改的商品的名字："+goods.getGoodsName());
             if (Objects.equals(size, "S")){
                 /*根据商品ID修改商品的库存数量*/
                 goodsSizeService.updateSize(new goodsSize(goodsSizeId,goodsSizeById.getGoodsS()-count,null,null,null));
@@ -174,8 +173,15 @@ public class GoodsController {
             }
 
         }
-
         /*结算完成后删除购物车中的信息*/
+        cartService.delCartById(cartId);
+
+//        return "success";
+    }
+
+    @RequestMapping("/success")
+    public String success(){
+        return "success";
     }
 
 }

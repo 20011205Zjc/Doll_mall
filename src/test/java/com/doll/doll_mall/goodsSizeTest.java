@@ -39,7 +39,7 @@ public class goodsSizeTest {
 
     @Test
     void testSize(){
-        goodsSizeService.updateSize(new goodsSize(70,0,999,250,"1669875276189"));
+        goodsSizeService.updateSize(new goodsSize(70,1,999,250,"1669875276189"));
     }
     @Test
     void test3(){

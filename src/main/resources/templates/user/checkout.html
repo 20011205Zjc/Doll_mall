@@ -11,7 +11,7 @@
 <script src="/static/js/checkout.js"></script>
 
 <body>
-
+<div th:insert="~{common/common::#commonNav(active='cart')}"></div>
 <div class="container" >
   <div class="py-5 text-center">
     <div class="d-inline-flex align-items-center mb-4">
@@ -41,18 +41,12 @@
                 请填写邮箱
               </div>
             </div>
-
-
             <label for="address" class="form-label">选择地址</label>
             <select class="form-select" id="address" aria-label="Default select example">
             </select>
-
-
           </div>
           <hr class="my-4">
-
           <h4 class="mb-3">支付方式</h4>
-
           <div class="my-3">
             <div class="form-check">
               <input id="wechatpay" name="paymentMethod" type="radio" class="form-check-input" checked required>
@@ -69,9 +63,9 @@
           </div>
 
           <hr class="my-4">
-
           <button type="button" class="w-100 btn btn-primary btn-lg" onclick="checkOut()">提交订单</button>
         </form>
+
       </div>
 
       <!---->
@@ -125,6 +119,7 @@
             <input type="hidden" th:value="${carts.getGoodsId()}" th:id="${'goodsId'+staut.count}">
             <input type="hidden" th:value="${carts.getGoodsSize()}" th:id="${'size'+staut.count}">
             <input type="hidden" th:value="${carts.getGoodsCount()}" th:id="${'count'+staut.count}">
+            <input type="hidden" th:value="${carts.getCartId()}" th:id="${'cartId'+staut.count}">
             <!--=======================================================================================-->
           </li>
           <!---->
@@ -154,9 +149,7 @@
       </div>
     </div>
   </main>
-  <form method="post" action="/delCheck" id="delAll">
-    <input type="hidden" name="hello">
-  </form>
+
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2010–2021 前沿科技Artech All rights reserved</p>
     <ul class="list-inline">

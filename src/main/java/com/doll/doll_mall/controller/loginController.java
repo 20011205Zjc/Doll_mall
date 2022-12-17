@@ -148,7 +148,6 @@ public class loginController {
     /*到注册页*/
     @RequestMapping("/register")
     public String register(){
-        System.out.println("执行了");
         return "user/register";
     }
     /*发送邮箱验证码*/
@@ -201,7 +200,6 @@ public class loginController {
     /*注册*/
     @RequestMapping("/adduser")
     public String addUser(User user,Model model){
-        System.out.println(2233);
         String password = MD5Util.getMD5(user.getUserPassword());
         user.setUserPassword(password);
         System.out.println("注册的用户输出："+user);
