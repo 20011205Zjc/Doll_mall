@@ -10,7 +10,7 @@ function checkOut(){
     }else {
         ad = true
     }
-    // var form = document.getElementById("checkOutForm");
+    var form = document.getElementById("checkOutForm");
     if (ad){
 
         var form = document.getElementById("checkOutForm");
@@ -32,6 +32,7 @@ function checkOut(){
             xhr.open("POST","/checkOut",true)
             xhr.send(fm)
         }
+
         /*=======================================*/
         form.submit();
         form.action = "/success"
@@ -39,4 +40,5 @@ function checkOut(){
     }else {
         alert("地址为空，请添加地址！")
     }
+    alert("提交成功！")
 }

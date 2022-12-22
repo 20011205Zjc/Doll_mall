@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!--设置网页的图标-->
+    <link rel="icon" href="/static/img/favicon.ico" mce_href="/static/img/favicon.ico" type="image/x-icon"/>
     <title>个人信息</title>
     <div th:insert="common/common::commonHeader"></div>
 </head>
@@ -27,7 +29,7 @@
             <div class="panel-main__content">
                 <div class="ih-item circle effect right_to_left">
                     <a href="#" title="" class="blog-button">
-                        <div class="img"><img th:src="${headPhoto}" alt="img" class="js-avatar iUp profilepic"></div>
+                        <div class="img"><img th:src="${headPhoto}" src="/static/img/tx.png" alt="img" class="js-avatar iUp profilepic"></div>
                     </a>
                 </div>
 

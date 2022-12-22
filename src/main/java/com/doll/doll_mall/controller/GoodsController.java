@@ -140,7 +140,7 @@ public class GoodsController {
         model.addAttribute("goodsTypes",goodsTypes);
         model.addAttribute("type",goodsByShopId);
         model.addAttribute("type2",typeById.getTypeName());
-        return "/goods/goodsType";
+        return "goods/goodsType";
     }
 
     /*发送订单请求*/
